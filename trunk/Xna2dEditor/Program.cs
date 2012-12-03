@@ -24,7 +24,7 @@ namespace Fyri2dEditor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(new ContentLoaderForm());
         }
     }
 }
