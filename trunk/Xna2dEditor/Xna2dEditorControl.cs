@@ -46,7 +46,8 @@ namespace Fyri2dEditor
         protected override void Draw()
         {
             // Clear to the default control background color.
-            Color backColor = new Color(BackColor.R, BackColor.G, BackColor.B);
+            //Color backColor = new Color(BackColor.R, BackColor.G, BackColor.B);
+            Color backColor = Color.CornflowerBlue;
 
             GraphicsDevice.Clear(backColor);
         }       

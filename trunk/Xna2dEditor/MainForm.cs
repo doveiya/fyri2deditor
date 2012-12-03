@@ -43,7 +43,7 @@ namespace Fyri2dEditor
                                                 contentBuilder.OutputDirectory);
 
             /// Automatically bring up the "Load Model" dialog when we are first shown.
-            this.Shown += OpenMenuClicked;
+            //this.Shown += OpenMenuClicked;
         }
 
 
