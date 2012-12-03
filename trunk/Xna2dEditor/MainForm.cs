@@ -92,7 +92,7 @@ namespace Fyri2dEditor
             Cursor = Cursors.WaitCursor;
 
             // Unload any existing model.
-            xna2dEditorControl.Model = null;
+            //xna2dEditorControl.Model = null;
             contentManager.Unload();
 
             // Tell the ContentBuilder what to build.
@@ -106,7 +106,7 @@ namespace Fyri2dEditor
             {
                 // If the build succeeded, use the ContentManager to
                 // load the temporary .xnb file that we just created.
-                xna2dEditorControl.Model = contentManager.Load<Model>("Model");
+                //xna2dEditorControl.Model = contentManager.Load<Model>("Model");
             }
             else
             {

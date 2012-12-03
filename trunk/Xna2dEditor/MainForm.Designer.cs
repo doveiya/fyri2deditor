@@ -73,7 +73,6 @@ namespace Fyri2dEditor
             // 
             this.xna2dEditorControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.xna2dEditorControl.Location = new System.Drawing.Point(0, 24);
-            this.xna2dEditorControl.Model = null;
             this.xna2dEditorControl.Name = "modelViewerControl";
             this.xna2dEditorControl.Size = new System.Drawing.Size(792, 549);
             this.xna2dEditorControl.TabIndex = 1;
