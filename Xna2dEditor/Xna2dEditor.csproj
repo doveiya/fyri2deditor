@@ -66,7 +66,11 @@
     <Reference Include="Microsoft.Build" />
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Input.Touch, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Xna.Framework.Net, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -74,6 +78,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContentBuilder.cs" />
+    <Compile Include="Debug\DebugCommandUI.cs" />
+    <Compile Include="Debug\DebugManager.cs" />
+    <Compile Include="Debug\DebugSystem.cs" />
+    <Compile Include="Debug\FpsCounter.cs" />
+    <Compile Include="Debug\IDebugCommandHost.cs" />
+    <Compile Include="Debug\KeyboardUtils.cs" />
+    <Compile Include="Debug\Layout.cs" />
+    <Compile Include="Debug\RemoteDebugCommand.cs" />
+    <Compile Include="Debug\StringBuilderExtensions.cs" />
+    <Compile Include="Debug\TimeRuler.cs" />
+    <Compile Include="RenderEngine\RenderEngineBase.cs" />
+    <Compile Include="RenderEngine\XnaRenderEngine.cs" />
     <Compile Include="Xna2dEditorControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -93,7 +109,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="2dShapes\2dRect.cs" />
+    <Compile Include="2dShapes\Rect2d.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainForm.cs</DependentUpon>

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Fyri2dEditor
 {
-    public class Xna2dRect
+    public class Rect2d
     {
     }
 }
