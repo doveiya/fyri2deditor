@@ -93,7 +93,12 @@ namespace Fyri2dEditor
                 // Tell the ContentBuilder what to build.
                 contentBuilder.Clear();
 
-                contentBuilder.Add(fileName, fontName, null, "FontTextureProcessor");
+                string ext = Path.GetExtension(fileName).ToLower();
+
+                if (ext == ".spritefont")
+                    contentBuilder.Add(fileName, fontName, null, "FontDescriptionProcessor");
+                else
+                    contentBuilder.Add(fileName, fontName, null, "FontTextureProcessor");
 
                 // Build this new model data.
                 string buildError = contentBuilder.Build();
@@ -125,9 +130,10 @@ namespace Fyri2dEditor
             return newlyAddedFont;
         }
 
-        public override FyriFont GetFont(string textureName)
+        public override FyriFont GetFont(string fontName)
         {
-            throw new NotImplementedException();
+            FyriFont fontToReturn = fontList.FirstOrDefault(p => p.FontName == fontName);
+            return fontToReturn;
         }
     }
 }

@@ -125,9 +125,10 @@ namespace Fyri2dEditor
             return newlyAddedEffect;
         }
 
-        public override FyriEffect GetEffect(string textureName)
+        public override FyriEffect GetEffect(string effectName)
         {
-            throw new NotImplementedException();
+            FyriEffect effectToReturn = effectList.FirstOrDefault(p => p.EffectName == effectName);
+            return effectToReturn;
         }
     }
 }

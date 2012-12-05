@@ -103,6 +103,17 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Fonts\XnaFontManager.cs" />
+    <Compile Include="RoundLine\RoundLine.cs" />
+    <Compile Include="RoundLine\RoundLineDemoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RoundLine\RoundLineDemoForm.Designer.cs">
+      <DependentUpon>RoundLineDemoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RoundLine\RoundLineDemoViewerControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RoundLine\RoundLineUtils.cs" />
     <Compile Include="Textures\Texture2dViewerControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -114,11 +125,12 @@
     </Compile>
     <Compile Include="FyriProject\FyriProject.cs" />
     <Compile Include="Models\FyriModel.cs" />
-    <Compile Include="Models\ModelManagerBase.cs" />
+    <Compile Include="Models\IModelManager.cs" />
     <Compile Include="Models\XnaModelManager.cs" />
     <Compile Include="Textures\FyriTexture2d.cs" />
     <Compile Include="Textures\Texture2dManagerBase.cs" />
     <Compile Include="Textures\XnaTexture2dManager.cs" />
+    <Compile Include="Utilities\Singleton\Singleton.cs" />
     <Compile Include="Xna2dEditorControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -163,8 +175,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="RoundLine\RoundLineDemoForm.resx">
+      <DependentUpon>RoundLineDemoForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Default\RoundLine.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Default\Sphere.fbx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Default\SpriteFont.spritefont">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

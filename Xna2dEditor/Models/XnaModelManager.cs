@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Fyri2dEditor
 {
-    public class XnaModelManager : ModelManagerBase
+    public class XnaModelManager : IModelManager
     {
         ContentBuilder contentBuilder;
         ContentManager contentManager;
@@ -26,12 +26,12 @@ namespace Fyri2dEditor
             ProjectOriginalContentFolder = originalContentFolder;
         }
 
-        public override void Initialize()
+        public void Initialize()
         {
             throw new NotImplementedException();
         }
 
-        public override List<FyriModel> RefreshList(List<FyriModel> list)
+        public List<FyriModel> RefreshList(List<FyriModel> list)
         {
             contentBuilder.Clear();
 
@@ -62,7 +62,7 @@ namespace Fyri2dEditor
             }
         }
 
-        public override FyriModel LoadModel(string fileName)
+        public FyriModel LoadModel(string fileName)
         {
             if (modelList.FirstOrDefault(p => p.OriginalFileName == fileName) != null)
                 return modelList.FirstOrDefault(p => p.OriginalFileName == fileName);
@@ -125,9 +125,10 @@ namespace Fyri2dEditor
             return newlyAddedModel;
         }
 
-        public override FyriModel GetModel(string modelName)
+        public FyriModel GetModel(string modelName)
         {
-            throw new NotImplementedException();
+            FyriModel modelToReturn = modelList.FirstOrDefault(p => p.ModelName == modelName);
+            return modelToReturn;
         }
     }
 }

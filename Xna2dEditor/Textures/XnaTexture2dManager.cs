@@ -127,7 +127,8 @@ namespace Fyri2dEditor
 
         public override FyriTexture2d GetTexture2d(string textureName)
         {
-            throw new NotImplementedException();
+            FyriTexture2d textureToReturn = textureList.FirstOrDefault(p => p.TextureName == textureName);
+            return textureToReturn;
         }
     }
 }
