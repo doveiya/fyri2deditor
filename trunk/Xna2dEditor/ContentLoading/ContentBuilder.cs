@@ -28,9 +28,11 @@ namespace Fyri2dEditor
     /// in a temporary directory. After the build finishes, you can use a regular
     /// ContentManager to load these temporary .xnb files in the usual way.
     /// </summary>
-    class ContentBuilder : IDisposable
+    public class ContentBuilder : IDisposable
     {
         #region Fields
+
+        bool DeleteOnDispose;
 
 
         // What importers or processors should we load?
@@ -86,7 +88,7 @@ namespace Fyri2dEditor
         /// </summary>
         public string OutputDirectory
         {
-            get { return Path.Combine(buildDirectory, "bin/Content"); }
+            get { return Path.Combine(buildDirectory, "content"); }
         }
 
 
@@ -101,6 +103,16 @@ namespace Fyri2dEditor
         public ContentBuilder()
         {
             CreateTempDirectory();
+            CreateBuildProject();
+        }
+
+        /// <summary>
+        /// Creates a new content builder at specified filepath.
+        /// </summary>
+        public ContentBuilder(string path, bool deleteOnDispose)
+        {
+            DeleteOnDispose = deleteOnDispose;
+            CreateContentDirectory(path);
             CreateBuildProject();
         }
 
@@ -134,7 +146,10 @@ namespace Fyri2dEditor
             {
                 isDisposed = true;
 
-                DeleteTempDirectory();
+                this.Clear();
+
+                if(DeleteOnDispose)
+                    DeleteTempDirectory();
             }
         }
 
@@ -150,7 +165,9 @@ namespace Fyri2dEditor
         void CreateBuildProject()
         {
             string projectPath = Path.Combine(buildDirectory, "content.contentproj");
-            string outputPath = Path.Combine(buildDirectory, "bin");
+            //string projectPath = buildDirectory;
+            //string outputPath = Path.Combine(buildDirectory, "bin");
+            string outputPath = buildDirectory;
 
             // Create the build project.
             projectRootElement = ProjectRootElement.Create(projectPath);
@@ -247,6 +264,27 @@ namespace Fyri2dEditor
             return null;
         }
 
+
+        #endregion
+
+        #region Content Directories
+
+        /// <summary>
+        /// Creates a temporary directory in which to build content.
+        /// </summary>
+        void CreateContentDirectory(string path)
+        {
+            // Start with a standard base name:
+            //
+            //  %temp%\WinFormsContentLoading.ContentBuilder
+
+            //baseDirectory = Path.Combine(path, GetType().FullName);
+            baseDirectory = path;
+            processDirectory = path;
+            buildDirectory = path;
+
+            Directory.CreateDirectory(buildDirectory);
+        }
 
         #endregion
 
