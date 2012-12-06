@@ -50,6 +50,8 @@ namespace Fyri2dEditor
                 for (int i = 0; i < list.Count; i++)
                 {
                     list[i].Effect = contentManager.Load<Effect>(list[i].EffectName);
+                    if (effectList.FirstOrDefault(p => p.OriginalFileName == list[i].OriginalFileName) == null)
+                        effectList.Add(list[i]);
                 }
 
                 return list;
