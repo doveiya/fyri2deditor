@@ -1,136 +1,16 @@
-// RoundLine.cs
-// By Michael D. Anderson
-// Version 4.00, Feb 8 2011
-//
-// A class to efficiently draw thick lines with rounded ends.
-
-#region Using Statements
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
+using System.Linq;
+using System.Text;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
-#endregion
-
+using Microsoft.Xna.Framework;
 
 namespace Fyri2dEditor
 {
     /// <summary>
-    /// Represents a single line segment.  Drawing is handled by the RoundLineManager class.
-    /// </summary>
-    public partial class RoundLine
-    {
-        private Vector2 p0; // Begin point of the line
-        private Vector2 p1; // End point of the line
-        private float rho; // Length of the line
-        private float theta; // Angle of the line
-
-        public Vector2 P0 
-        { 
-            get 
-            { 
-                return p0; 
-            }
-            set
-            {
-                p0 = value;
-                RecalcRhoTheta();
-            }
-        }
-        public Vector2 P1 
-        {
-            get 
-            { 
-                return p1; 
-            }
-            set
-            {
-                p1 = value;
-                RecalcRhoTheta();
-            }
-        }
-        public float Rho { get { return rho; } }
-        public float Theta { get { return theta; } }
-
-        public RoundLine(Vector2 p0, Vector2 p1)
-        {
-            this.p0 = p0;
-            this.p1 = p1;
-            RecalcRhoTheta();
-        }
-
-        public RoundLine(float x0, float y0, float x1, float y1)
-        {
-            this.p0 = new Vector2(x0, y0);
-            this.p1 = new Vector2(x1, y1);
-            RecalcRhoTheta();
-        }
-
-        protected void RecalcRhoTheta()
-        {
-            Vector2 delta = P1 - P0;
-            rho = delta.Length();
-            theta = (float)Math.Atan2(delta.Y, delta.X);
-        }
-    };
-
-
-    // A "degenerate" RoundLine where both endpoints are equal
-    public class Disc : RoundLine
-    {
-        public Disc(Vector2 p) : base(p, p) { }
-        public Disc(float x, float y) : base(x, y, x, y) { }
-        public Vector2 Pos 
-        {
-            get 
-            {
-                return P0; 
-            }
-            set
-            {
-                P0 = value;
-                P1 = value;
-            }
-        }
-    };
-
-
-    // A vertex type for drawing RoundLines, including an instance index
-    struct RoundLineVertex : IVertexType
-    {
-        public Vector3 pos;
-        public Vector2 rhoTheta;
-        public Vector2 scaleTrans;
-        public float index;
-
-        public RoundLineVertex(Vector3 pos, Vector2 norm, Vector2 tex, float index)
-        {
-            this.pos = pos;
-            this.rhoTheta = norm;
-            this.scaleTrans = tex;
-            this.index = index;
-        }
-
-        public readonly static VertexDeclaration VertexDeclaration = new VertexDeclaration
-            (
-                new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0),
-                new VertexElement(12, VertexElementFormat.Vector2, VertexElementUsage.Normal, 0),
-                new VertexElement(20, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0),
-                new VertexElement(28, VertexElementFormat.Single, VertexElementUsage.TextureCoordinate, 1)
-            );
-
-        VertexDeclaration IVertexType.VertexDeclaration
-        {
-            get { return VertexDeclaration; }
-        }
-    }
-
-
-    /// <summary>
     /// Class to handle drawing a list of RoundLines.
     /// </summary>
-    class RoundLineManager
+    class XnaLine2dBatch
     {
         private GraphicsDevice device;
         private Effect effect;
@@ -328,7 +208,7 @@ namespace Fyri2dEditor
         /// Draw a single RoundLine.  Usually you want to draw a list of RoundLines
         /// at a time instead for better performance.
         /// </summary>
-        public void Draw(RoundLine roundLine, float lineRadius, Color lineColor, Matrix viewProjMatrix,
+        public void Draw(XnaLine2d roundLine,  Matrix viewProjMatrix,
             float time, string techniqueName)
         {
             device.SetVertexBuffer(vb);
@@ -336,15 +216,15 @@ namespace Fyri2dEditor
 
             viewProjMatrixParameter.SetValue(viewProjMatrix);
             timeParameter.SetValue(time);
-            lineColorParameter.SetValue(lineColor.ToVector4());
-            lineRadiusParameter.SetValue(lineRadius);
+            lineColorParameter.SetValue(roundLine.Color.ToVector4());
+            lineRadiusParameter.SetValue(roundLine.Radius);
             blurThresholdParameter.SetValue(BlurThreshold);
 
             int iData = 0;
-            translationData[iData++] = roundLine.P0.X;
-            translationData[iData++] = roundLine.P0.Y;
-            translationData[iData++] = roundLine.Rho;
-            translationData[iData++] = roundLine.Theta;
+            translationData[iData++] = roundLine.StartPoint.X;
+            translationData[iData++] = roundLine.StartPoint.Y;
+            translationData[iData++] = roundLine.Length;
+            translationData[iData++] = roundLine.Angle;
             instanceDataParameter.SetValue(translationData);
 
             if (techniqueName == null)
@@ -362,7 +242,7 @@ namespace Fyri2dEditor
         /// <summary>
         /// Draw a list of Lines.
         /// </summary>
-        public void Draw(List<RoundLine> roundLines, float lineRadius, Color lineColor, Matrix viewProjMatrix, 
+        public void Draw(List<XnaLine2d> roundLines, Matrix viewProjMatrix,
             float time, string techniqueName)
         {
             device.SetVertexBuffer(vb);
@@ -370,8 +250,7 @@ namespace Fyri2dEditor
 
             viewProjMatrixParameter.SetValue(viewProjMatrix);
             timeParameter.SetValue(time);
-            lineColorParameter.SetValue(lineColor.ToVector4());
-            lineRadiusParameter.SetValue(lineRadius);
+            
             blurThresholdParameter.SetValue(BlurThreshold);
 
             if (techniqueName == null)
@@ -383,12 +262,15 @@ namespace Fyri2dEditor
 
             int iData = 0;
             int numInstancesThisDraw = 0;
-            foreach (RoundLine roundLine in roundLines)
+            foreach (XnaLine2d roundLine in roundLines)
             {
-                translationData[iData++] = roundLine.P0.X;
-                translationData[iData++] = roundLine.P0.Y;
-                translationData[iData++] = roundLine.Rho;
-                translationData[iData++] = roundLine.Theta;
+                lineColorParameter.SetValue(roundLine.Color.ToVector4());
+                lineRadiusParameter.SetValue(roundLine.Radius);
+
+                translationData[iData++] = roundLine.StartPoint.X;
+                translationData[iData++] = roundLine.StartPoint.Y;
+                translationData[iData++] = roundLine.Length;
+                translationData[iData++] = roundLine.Angle;
                 numInstancesThisDraw++;
 
                 if (numInstancesThisDraw == numInstances)

@@ -37,7 +37,12 @@ namespace Fyri2dEditor
 
             for (int i = 0; i < list.Count; i++)
             {
-                contentBuilder.Add(list[i].FileName, list[i].FontName, null, "FontTextureProcessor");
+                string ext = Path.GetExtension(list[i].FileName).ToLower();
+
+                if (ext == ".spritefont")
+                    contentBuilder.Add(list[i].FileName, list[i].FontName, null, "FontDescriptionProcessor");
+                else
+                    contentBuilder.Add(list[i].FileName, list[i].FontName, null, "FontTextureProcessor");
             }
 
             // Build this new model data.
@@ -50,6 +55,8 @@ namespace Fyri2dEditor
                 for (int i = 0; i < list.Count; i++)
                 {
                     list[i].Font = contentManager.Load<SpriteFont>(list[i].FontName);
+                    if (fontList.FirstOrDefault(p => p.OriginalFileName == list[i].OriginalFileName) == null)
+                        fontList.Add(list[i]);
                 }
 
                 return list;

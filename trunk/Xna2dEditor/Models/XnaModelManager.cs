@@ -50,6 +50,8 @@ namespace Fyri2dEditor
                 for (int i = 0; i < list.Count; i++)
                 {
                     list[i].Model = contentManager.Load<Model>(list[i].ModelName);
+                    if (modelList.FirstOrDefault(p => p.OriginalFileName == list[i].OriginalFileName) == null)
+                        modelList.Add(list[i]);
                 }
 
                 return list;

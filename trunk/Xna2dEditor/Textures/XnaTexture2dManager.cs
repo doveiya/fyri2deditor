@@ -50,6 +50,8 @@ namespace Fyri2dEditor
                 for (int i = 0; i < list.Count; i++)
                 {
                     list[i].Texture = contentManager.Load<Texture2D>(list[i].TextureName);
+                    if (textureList.FirstOrDefault(p => p.OriginalFileName == list[i].OriginalFileName) == null)
+                        textureList.Add(list[i]);
                 }
 
                 return list;
