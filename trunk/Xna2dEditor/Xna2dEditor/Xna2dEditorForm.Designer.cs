@@ -28,7 +28,7 @@ namespace Fyri2dEditor
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Project Name");
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Xna2dEditorForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,10 +44,12 @@ namespace Fyri2dEditor
             this.loadEffectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadSpriteFontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.projectContentTV = new System.Windows.Forms.TreeView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.modelTabPage = new System.Windows.Forms.TabPage();
-            this.line2dDemoViewerControl = new Fyri2dEditor.Line2dDemoViewerControl();
+            this.xnaLine2dViewerControl = new Fyri2dEditor.XnaLine2dViewerControl();
+            this.editorToolStrip = new System.Windows.Forms.ToolStrip();
+            this.selectTSB = new System.Windows.Forms.ToolStripButton();
+            this.lineTSB = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -55,6 +57,7 @@ namespace Fyri2dEditor
             this.splitContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.modelTabPage.SuspendLayout();
+            this.editorToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -176,27 +179,14 @@ namespace Fyri2dEditor
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.projectContentTV);
+            this.splitContainer1.Panel1.Controls.Add(this.editorToolStrip);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
             this.splitContainer1.Size = new System.Drawing.Size(940, 549);
-            this.splitContainer1.SplitterDistance = 254;
+            this.splitContainer1.SplitterDistance = 65;
             this.splitContainer1.TabIndex = 1;
-            // 
-            // projectContentTV
-            // 
-            this.projectContentTV.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.projectContentTV.Location = new System.Drawing.Point(0, 0);
-            this.projectContentTV.Name = "projectContentTV";
-            treeNode1.Name = "ProjectNameNode";
-            treeNode1.Text = "Project Name";
-            this.projectContentTV.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            this.projectContentTV.Size = new System.Drawing.Size(254, 549);
-            this.projectContentTV.TabIndex = 0;
-            this.projectContentTV.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.projectContentTV_AfterSelect);
             // 
             // tabControl1
             // 
@@ -205,33 +195,64 @@ namespace Fyri2dEditor
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(682, 549);
+            this.tabControl1.Size = new System.Drawing.Size(871, 549);
             this.tabControl1.TabIndex = 0;
             // 
             // modelTabPage
             // 
-            this.modelTabPage.Controls.Add(this.line2dDemoViewerControl);
+            this.modelTabPage.Controls.Add(this.xnaLine2dViewerControl);
             this.modelTabPage.Location = new System.Drawing.Point(4, 22);
             this.modelTabPage.Name = "modelTabPage";
             this.modelTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.modelTabPage.Size = new System.Drawing.Size(674, 523);
+            this.modelTabPage.Size = new System.Drawing.Size(863, 523);
             this.modelTabPage.TabIndex = 0;
             this.modelTabPage.Text = "RoundLineDemo";
             this.modelTabPage.UseVisualStyleBackColor = true;
             // 
-            // line2dDemoViewerControl
+            // xnaLine2dViewerControl
             // 
-            this.line2dDemoViewerControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.line2dDemoViewerControl.Effect = null;
-            this.line2dDemoViewerControl.LineBatch = null;
-            this.line2dDemoViewerControl.Location = new System.Drawing.Point(3, 3);
-            this.line2dDemoViewerControl.Name = "line2dDemoViewerControl";
-            this.line2dDemoViewerControl.Size = new System.Drawing.Size(668, 517);
-            this.line2dDemoViewerControl.SpriteFont = null;
-            this.line2dDemoViewerControl.TabIndex = 0;
-            this.line2dDemoViewerControl.Text = "line2dDemoViewerControl";
+            this.xnaLine2dViewerControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.xnaLine2dViewerControl.Effect = null;
+            this.xnaLine2dViewerControl.LineBatch = null;
+            this.xnaLine2dViewerControl.Location = new System.Drawing.Point(3, 3);
+            this.xnaLine2dViewerControl.Name = "xnaLine2dViewerControl";
+            this.xnaLine2dViewerControl.Size = new System.Drawing.Size(857, 517);
+            this.xnaLine2dViewerControl.SpriteFont = null;
+            this.xnaLine2dViewerControl.TabIndex = 0;
+            this.xnaLine2dViewerControl.Text = "xnaLine2dViewerControl";
             // 
-            // Line2dDemoForm
+            // editorToolStrip
+            // 
+            this.editorToolStrip.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.editorToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectTSB,
+            this.lineTSB});
+            this.editorToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
+            this.editorToolStrip.Location = new System.Drawing.Point(0, 0);
+            this.editorToolStrip.Name = "editorToolStrip";
+            this.editorToolStrip.Size = new System.Drawing.Size(65, 549);
+            this.editorToolStrip.TabIndex = 0;
+            this.editorToolStrip.Text = "editorToolStrip";
+            // 
+            // selectTSB
+            // 
+            this.selectTSB.Image = ((System.Drawing.Image)(resources.GetObject("selectTSB.Image")));
+            this.selectTSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.selectTSB.Name = "selectTSB";
+            this.selectTSB.Size = new System.Drawing.Size(63, 35);
+            this.selectTSB.Text = "Select";
+            this.selectTSB.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // lineTSB
+            // 
+            this.lineTSB.Image = ((System.Drawing.Image)(resources.GetObject("lineTSB.Image")));
+            this.lineTSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.lineTSB.Name = "lineTSB";
+            this.lineTSB.Size = new System.Drawing.Size(63, 35);
+            this.lineTSB.Text = "Line";
+            this.lineTSB.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // Xna2dEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -239,16 +260,19 @@ namespace Fyri2dEditor
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Line2dDemoForm";
+            this.Name = "Xna2dEditorForm";
             this.Text = "WinForms Content Loading";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.modelTabPage.ResumeLayout(false);
+            this.editorToolStrip.ResumeLayout(false);
+            this.editorToolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -260,7 +284,6 @@ namespace Fyri2dEditor
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TreeView projectContentTV;
         private System.Windows.Forms.ToolStripMenuItem newProjectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openProjectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeProjectToolStripMenuItem;
@@ -274,7 +297,10 @@ namespace Fyri2dEditor
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage modelTabPage;
         private System.Windows.Forms.ToolStripMenuItem loadSpriteFontToolStripMenuItem;
-        private Line2dDemoViewerControl line2dDemoViewerControl;
+        private System.Windows.Forms.ToolStrip editorToolStrip;
+        private System.Windows.Forms.ToolStripButton selectTSB;
+        private System.Windows.Forms.ToolStripButton lineTSB;
+        private XnaLine2dViewerControl xnaLine2dViewerControl;
 
     }
 }
