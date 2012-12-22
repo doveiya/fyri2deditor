@@ -81,7 +81,7 @@ namespace Fyri2dEditor
                 services.AddService<IGraphicsDeviceService>(graphicsDeviceService);
             }
 
-            ProjectNameNode = projectContentTV.Nodes["ProjectNameNode"];
+            //ProjectNameNode = projectContentTV.Nodes["ProjectNameNode"];
             /// Automatically bring up the "Load Model" dialog when we are first shown.
             //this.Shown += OpenMenuClicked;
         }
@@ -126,9 +126,9 @@ namespace Fyri2dEditor
 
             ProjectNameNode.Nodes.Clear();
 
-            line2dDemoViewerControl.LineBatch = null;
-            line2dDemoViewerControl.SpriteFont = null;
-            line2dDemoViewerControl.Effect = null;
+            xnaLine2dViewerControl.LineBatch = null;
+            xnaLine2dViewerControl.SpriteFont = null;
+            xnaLine2dViewerControl.Effect = null;
 
             if (lineBatch != null)
             {
@@ -201,10 +201,10 @@ namespace Fyri2dEditor
                 {
                     currentProject.LoadedModels = modelManager.RefreshList(currentProject.LoadedModels);
 
-                    foreach (FyriModel model in currentProject.LoadedModels)
-                    {
-                        AddModelToTreeView(model);
-                    }
+                    //foreach (FyriModel model in currentProject.LoadedModels)
+                    //{
+                    //    AddModelToTreeView(model);
+                    //}
                 }
                 else
                 {
@@ -218,20 +218,20 @@ namespace Fyri2dEditor
                 {
                     currentProject.LoadedTexture2ds = texture2dManager.RefreshList(currentProject.LoadedTexture2ds);
 
-                    foreach (FyriTexture2d texture in currentProject.LoadedTexture2ds)
-                    {
-                        AddTexture2dToTreeView(texture);
-                    }
+                    //foreach (FyriTexture2d texture in currentProject.LoadedTexture2ds)
+                    //{
+                    //    AddTexture2dToTreeView(texture);
+                    //}
                 }
 
                 if (currentProject.LoadedFonts.Count > 0)
                 {
                     currentProject.LoadedFonts = fontManager.RefreshList(currentProject.LoadedFonts);
 
-                    foreach (FyriFont font in currentProject.LoadedFonts)
-                    {
-                        AddFontToTreeView(font);
-                    }
+                    //foreach (FyriFont font in currentProject.LoadedFonts)
+                    //{
+                    //    AddFontToTreeView(font);
+                    //}
                 }
                 else
                 {
@@ -245,10 +245,10 @@ namespace Fyri2dEditor
                 {
                     currentProject.LoadedEffects = effectManager.RefreshList(currentProject.LoadedEffects);
 
-                    foreach (FyriEffect effect in currentProject.LoadedEffects)
-                    {
-                        AddEffectToTreeView(effect);
-                    }
+                    //foreach (FyriEffect effect in currentProject.LoadedEffects)
+                    //{
+                    //    AddEffectToTreeView(effect);
+                    //}
                 }
                 else
                 {
@@ -264,9 +264,9 @@ namespace Fyri2dEditor
                 lineBatch = new XnaLine2dBatch();
                 lineBatch.Init(this.graphicsDeviceService.GraphicsDevice, roundlineEffect.Effect);
 
-                line2dDemoViewerControl.LineBatch = lineBatch;
-                line2dDemoViewerControl.SpriteFont = roundlineFont.Font;
-                line2dDemoViewerControl.Effect = roundlineEffect.Effect;
+                xnaLine2dViewerControl.LineBatch = lineBatch;
+                xnaLine2dViewerControl.SpriteFont = roundlineFont.Font;
+                xnaLine2dViewerControl.Effect = roundlineEffect.Effect;
             }
         }
 
@@ -336,7 +336,7 @@ namespace Fyri2dEditor
                         currentProject.LoadedModels.Add(loadedModel);
 
                     //modelViewerControl.Model = loadedModel.Model;
-                    AddModelToTreeView(loadedModel);
+                    //AddModelToTreeView(loadedModel);
                 }
                 Cursor = Cursors.Arrow;
 
@@ -361,9 +361,9 @@ namespace Fyri2dEditor
 
             ModelNode.Nodes.Add(nodeToAdd);
 
-            projectContentTV.CollapseAll();
+            //projectContentTV.CollapseAll();
             nodeToAdd.EnsureVisible();
-            projectContentTV.Refresh();
+            //projectContentTV.Refresh();
         }
 
         #endregion
@@ -420,7 +420,7 @@ namespace Fyri2dEditor
                         currentProject.LoadedTexture2ds.Add(loadedTexture);
 
                     //texture2dViewerControl.Texture = loadedTexture.Texture;
-                    AddTexture2dToTreeView(loadedTexture);
+                    //AddTexture2dToTreeView(loadedTexture);
                 }
                 Cursor = Cursors.Arrow;
 
@@ -445,9 +445,9 @@ namespace Fyri2dEditor
 
             Texture2dNode.Nodes.Add(nodeToAdd);
 
-            projectContentTV.CollapseAll();
+            //projectContentTV.CollapseAll();
             nodeToAdd.EnsureVisible();
-            projectContentTV.Refresh();
+            //projectContentTV.Refresh();
         }
 
         #endregion
@@ -507,7 +507,7 @@ namespace Fyri2dEditor
                         currentProject.LoadedFonts.Add(loadedFont);
 
                     //fontViewerControl.SpriteFont = loadedFont.Font;
-                    AddFontToTreeView(loadedFont);
+                    //AddFontToTreeView(loadedFont);
                 }
                 Cursor = Cursors.Arrow;
 
@@ -532,9 +532,9 @@ namespace Fyri2dEditor
 
             FontNode.Nodes.Add(nodeToAdd);
 
-            projectContentTV.CollapseAll();
+            //projectContentTV.CollapseAll();
             nodeToAdd.EnsureVisible();
-            projectContentTV.Refresh();
+            //projectContentTV.Refresh();
         }
 
         #endregion
@@ -580,7 +580,7 @@ namespace Fyri2dEditor
                         currentProject.LoadedEffects.Add(loadedEffect);
 
                     //effectViewerControl.Effect = loadedEffect.Effect;
-                    AddEffectToTreeView(loadedEffect);
+                    //AddEffectToTreeView(loadedEffect);
                 }
                 Cursor = Cursors.Arrow;
 
@@ -605,9 +605,9 @@ namespace Fyri2dEditor
 
             EffectNode.Nodes.Add(nodeToAdd);
 
-            projectContentTV.CollapseAll();
+            //projectContentTV.CollapseAll();
             nodeToAdd.EnsureVisible();
-            projectContentTV.Refresh();
+            //projectContentTV.Refresh();
         }
 
         #endregion
@@ -677,21 +677,21 @@ namespace Fyri2dEditor
             stream.Close();
         }
 
-        private void projectContentTV_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            TreeNode selectedNode = projectContentTV.SelectedNode;
-            if (selectedNode != null)
-            {
-                if (selectedNode.Tag != null)
-                {
-                    if (selectedNode.Tag is FyriModel)
-                    {
-                        FyriModel model = selectedNode.Tag as FyriModel;
-                        //modelViewerControl.Model = model.Model;
-                    }
-                }
-            }
-        }
+        //private void projectContentTV_AfterSelect(object sender, TreeViewEventArgs e)
+        //{
+        //    TreeNode selectedNode = projectContentTV.SelectedNode;
+        //    if (selectedNode != null)
+        //    {
+        //        if (selectedNode.Tag != null)
+        //        {
+        //            if (selectedNode.Tag is FyriModel)
+        //            {
+        //                FyriModel model = selectedNode.Tag as FyriModel;
+        //                //modelViewerControl.Model = model.Model;
+        //            }
+        //        }
+        //    }
+        //}
 
         #endregion
     }

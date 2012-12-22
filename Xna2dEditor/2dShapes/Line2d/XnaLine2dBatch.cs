@@ -10,7 +10,7 @@ namespace Fyri2dEditor
     /// <summary>
     /// Class to handle drawing a list of RoundLines.
     /// </summary>
-    class XnaLine2dBatch
+    public class XnaLine2dBatch
     {
         private GraphicsDevice device;
         private Effect effect;
