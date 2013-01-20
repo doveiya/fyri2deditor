@@ -28,6 +28,7 @@ namespace Draw
     using SVGLib;
 using Microsoft.Xna.Framework;
     using Fyri2dEditor.Xna2dDrawingLibrary;
+    using Xna2dEditor;
 
     public sealed class XnaDrawPath : XnaDrawLine
     {

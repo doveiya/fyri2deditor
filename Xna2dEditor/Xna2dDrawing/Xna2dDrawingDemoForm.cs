@@ -30,6 +30,7 @@ namespace Fyri2dEditor
     /// </summary>
     public partial class Xna2dDrawingDemoForm : Form
     {
+        #region Xna2dDrawing Fields
         // However many GraphicsDeviceControl instances you have, they all share
         // the same underlying GraphicsDevice, managed by this helper service.
         GraphicsDeviceService graphicsDeviceService;
@@ -59,6 +60,8 @@ namespace Fyri2dEditor
         ContentManager contentManager;
 
         FyriProject currentProject;
+
+        #endregion
 
         TreeNode ProjectNameNode;
         TreeNode ModelNode;
@@ -92,6 +95,7 @@ namespace Fyri2dEditor
             //this.Shown += OpenMenuClicked;
         }
 
+        #region Xna2dDrawing Methods
 
         /// <summary>
         /// Event handler for the Exit menu option.
@@ -753,6 +757,8 @@ namespace Fyri2dEditor
         //        }
         //    }
         //}
+
+        #endregion
 
         #endregion
     }
