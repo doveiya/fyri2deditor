@@ -159,35 +159,51 @@ namespace Fyri2dEditor
         #region MSBuild
 
 
+        string OutputPath = String.Empty;
+        
+
+        public static Dictionary<string, Project> buildProjects = new Dictionary<string, Project>();
+
+
         /// <summary>
         /// Creates a temporary MSBuild content project in memory.
         /// </summary>
         void CreateBuildProject()
         {
-            string projectPath = Path.Combine(buildDirectory, "content.contentproj");
-            //string projectPath = buildDirectory;
-            //string outputPath = Path.Combine(buildDirectory, "bin");
-            string outputPath = buildDirectory;
+            string newProjectPath = Path.Combine(buildDirectory, "content.contentproj");
 
-            // Create the build project.
-            projectRootElement = ProjectRootElement.Create(projectPath);
-
-            // Include the standard targets file that defines how to build XNA Framework content.
-            projectRootElement.AddImport("$(MSBuildExtensionsPath)\\Microsoft\\XNA Game Studio\\" +
-                                         "v4.0\\Microsoft.Xna.GameStudio.ContentPipeline.targets");
-
-            buildProject = new Project(projectRootElement);
-
-            buildProject.SetProperty("XnaPlatform", "Windows");
-            buildProject.SetProperty("XnaProfile", "Reach");
-            buildProject.SetProperty("XnaFrameworkVersion", "v4.0");
-            buildProject.SetProperty("Configuration", "Release");
-            buildProject.SetProperty("OutputPath", outputPath);
-
-            // Register any custom importers or processors.
-            foreach (string pipelineAssembly in pipelineAssemblies)
+            if(buildProjects.ContainsKey(buildDirectory))
+                buildProject = buildProjects[buildDirectory];
+            else
             {
-                buildProject.AddItem("Reference", pipelineAssembly);
+                //string projectPath = buildDirectory;
+                //string outputPath = Path.Combine(buildDirectory, "bin");
+                string outputPath = buildDirectory;
+
+                // Create the build project.
+                projectRootElement = ProjectRootElement.Create(newProjectPath);
+
+                string imports = "$(MSBuildExtensionsPath)\\Microsoft\\XNA Game Studio\\" +
+                                    "v4.0\\Microsoft.Xna.GameStudio.ContentPipeline.targets";
+
+                // Include the standard targets file that defines how to build XNA Framework content.
+                ProjectImportElement importElement = projectRootElement.AddImport(imports);
+
+                buildProject = new Project(projectRootElement);
+
+                buildProject.SetProperty("XnaPlatform", "Windows");
+                buildProject.SetProperty("XnaProfile", "Reach");
+                buildProject.SetProperty("XnaFrameworkVersion", "v4.0");
+                buildProject.SetProperty("Configuration", "Release");
+                buildProject.SetProperty("OutputPath", outputPath);
+
+                // Register any custom importers or processors.
+                foreach (string pipelineAssembly in pipelineAssemblies)
+                {
+                    buildProject.AddItem("Reference", pipelineAssembly);
+                }
+
+                buildProjects.Add(buildDirectory, buildProject);
             }
 
             // Hook up our custom error logger.

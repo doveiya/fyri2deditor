@@ -18,10 +18,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Drawing.Printing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Crom.Controls.Docking
 {
@@ -367,7 +367,7 @@ namespace Crom.Controls.Docking
       /// </summary>
       /// <param name="screenPoint">point in screen coordinates</param>
       /// <returns>rectangle from point</returns>
-      public static Rectangle GetFillRectangleFromPoint(Point screenPoint, Control underPoint, FormWrapper host)
+      public static Rectangle GetFillRectangleFxromPoint(Point screenPoint, Control underPoint, FormWrapper host)
       {
          if (underPoint == null)
          {

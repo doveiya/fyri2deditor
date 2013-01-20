@@ -18,6 +18,7 @@ using System.Globalization;
 using System.Collections.Generic;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
+using Xna2dEditor;
 #endregion
 
 namespace Fyri2dEditor

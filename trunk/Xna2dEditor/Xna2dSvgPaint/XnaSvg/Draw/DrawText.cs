@@ -150,7 +150,7 @@ namespace Draw
             //}
             //sc += "\"";
             //s += sc;
-            //RectangleF crect = rect;
+            //RectangleFx crect = rect;
             //if (anchor.Alignment == StringAlignment.Center)
             //{
             //    crect.X += crect.Width/2;

@@ -94,7 +94,7 @@ namespace Crom.Controls.Docking
          Point screenLocation     = Control.MousePosition;
          DockableContainer containerUnderMouse = GetContainerUnderMouse(screenLocation);
 
-         Rectangle fillRectangle  = FormWrapper.GetFillRectangleFromPoint(screenLocation, containerUnderMouse, _host);
+         Rectangle fillRectangle  = FormWrapper.GetFillRectangleFxromPoint(screenLocation, containerUnderMouse, _host);
 
          if (fillRectangle.IsEmpty)
          {
