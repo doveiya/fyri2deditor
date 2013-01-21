@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
-using XnaPiccolo.Util;
-
 namespace Xna2dEditor
 {
     public static class MatrixExtensions
@@ -194,7 +192,7 @@ namespace Xna2dEditor
         {
             System.Drawing.PointF[] pts = {new System.Drawing.PointF(0, 0), new System.Drawing.PointF(1, 0)};
             System.Drawing.PointF[] newPts = MatrixExtensions.TransformPoints(matrix, pts);
-            return PUtil.DistanceBetweenPoints(newPts[0], newPts[1]);
+            return DistanceBetweenPoints(newPts[0], newPts[1]);
         }
 
         internal static float GetRotation(Matrix matrix)
@@ -205,7 +203,7 @@ namespace Xna2dEditor
             PointFx tp2 = MatrixExtensions.Transform(matrix, p2);
 
             double dy = Math.Abs(tp2.Y - tp1.Y);
-            float l = PUtil.DistanceBetweenPoints(tp1, tp2);
+            float l = DistanceBetweenPoints(tp1, tp2);
             double rotation = Math.Asin(dy / l);
 
             // correct for quadrant
@@ -230,6 +228,28 @@ namespace Xna2dEditor
 
             // convert to degrees
             return (float)(rotation * (180 / Math.PI));
+        }
+
+        /// <summary>
+        /// Returns the geometric distance between the two given points.
+        /// </summary>
+        /// <param name="p1">The first point.</param>
+        /// <param name="p2">The second point.</param>
+        /// <returns>The distance between p1 and p2.</returns>
+        public static float DistanceBetweenPoints(PointFx p1, PointFx p2)
+        {
+            return (float)Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
+        }
+
+        /// <summary>
+        /// Returns the geometric distance between the two given points.
+        /// </summary>
+        /// <param name="p1">The first point.</param>
+        /// <param name="p2">The second point.</param>
+        /// <returns>The distance between p1 and p2.</returns>
+        public static float DistanceBetweenPoints(System.Drawing.PointF p1, System.Drawing.PointF p2)
+        {
+            return (float)Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
         }
 
         internal static Matrix SetRotation(Matrix m, float theta)

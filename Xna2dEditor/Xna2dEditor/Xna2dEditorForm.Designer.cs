@@ -44,20 +44,29 @@ namespace Fyri2dEditor
             this.loadEffectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadSpriteFontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.modelTabPage = new System.Windows.Forms.TabPage();
-            this.xnaLine2dViewerControl = new Fyri2dEditor.XnaLine2dViewerControl();
             this.editorToolStrip = new System.Windows.Forms.ToolStrip();
             this.selectTSB = new System.Windows.Forms.ToolStripButton();
             this.lineTSB = new System.Windows.Forms.ToolStripButton();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.leftRulerControl = new Lyquidity.UtilityLibrary.Controls.RulerControl();
+            this.topRulerControl = new Lyquidity.UtilityLibrary.Controls.RulerControl();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.modelTabPage.SuspendLayout();
             this.editorToolStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -67,7 +76,7 @@ namespace Fyri2dEditor
             this.loadToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(940, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1245, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -183,43 +192,10 @@ namespace Fyri2dEditor
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(940, 549);
-            this.splitContainer1.SplitterDistance = 65;
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Size = new System.Drawing.Size(1245, 623);
+            this.splitContainer1.SplitterDistance = 85;
             this.splitContainer1.TabIndex = 1;
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.modelTabPage);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(871, 549);
-            this.tabControl1.TabIndex = 0;
-            // 
-            // modelTabPage
-            // 
-            this.modelTabPage.Controls.Add(this.xnaLine2dViewerControl);
-            this.modelTabPage.Location = new System.Drawing.Point(4, 22);
-            this.modelTabPage.Name = "modelTabPage";
-            this.modelTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.modelTabPage.Size = new System.Drawing.Size(863, 523);
-            this.modelTabPage.TabIndex = 0;
-            this.modelTabPage.Text = "RoundLineDemo";
-            this.modelTabPage.UseVisualStyleBackColor = true;
-            // 
-            // xnaLine2dViewerControl
-            // 
-            this.xnaLine2dViewerControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xnaLine2dViewerControl.Effect = null;
-            this.xnaLine2dViewerControl.LineBatch = null;
-            this.xnaLine2dViewerControl.Location = new System.Drawing.Point(3, 3);
-            this.xnaLine2dViewerControl.Name = "xnaLine2dViewerControl";
-            this.xnaLine2dViewerControl.Size = new System.Drawing.Size(857, 517);
-            this.xnaLine2dViewerControl.SpriteFont = null;
-            this.xnaLine2dViewerControl.TabIndex = 0;
-            this.xnaLine2dViewerControl.Text = "xnaLine2dViewerControl";
             // 
             // editorToolStrip
             // 
@@ -230,7 +206,7 @@ namespace Fyri2dEditor
             this.editorToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.editorToolStrip.Location = new System.Drawing.Point(0, 0);
             this.editorToolStrip.Name = "editorToolStrip";
-            this.editorToolStrip.Size = new System.Drawing.Size(65, 549);
+            this.editorToolStrip.Size = new System.Drawing.Size(85, 623);
             this.editorToolStrip.TabIndex = 0;
             this.editorToolStrip.Text = "editorToolStrip";
             // 
@@ -239,7 +215,7 @@ namespace Fyri2dEditor
             this.selectTSB.Image = ((System.Drawing.Image)(resources.GetObject("selectTSB.Image")));
             this.selectTSB.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.selectTSB.Name = "selectTSB";
-            this.selectTSB.Size = new System.Drawing.Size(63, 35);
+            this.selectTSB.Size = new System.Drawing.Size(83, 35);
             this.selectTSB.Text = "Select";
             this.selectTSB.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
@@ -248,15 +224,113 @@ namespace Fyri2dEditor
             this.lineTSB.Image = ((System.Drawing.Image)(resources.GetObject("lineTSB.Image")));
             this.lineTSB.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.lineTSB.Name = "lineTSB";
-            this.lineTSB.Size = new System.Drawing.Size(63, 35);
+            this.lineTSB.Size = new System.Drawing.Size(83, 35);
             this.lineTSB.Text = "Line";
             this.lineTSB.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.panel1);
+            this.splitContainer2.Panel1.Controls.Add(this.leftRulerControl);
+            this.splitContainer2.Panel1.Controls.Add(this.topRulerControl);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
+            this.splitContainer2.Size = new System.Drawing.Size(1156, 623);
+            this.splitContainer2.SplitterDistance = 828;
+            this.splitContainer2.TabIndex = 0;
+            // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.splitContainer3.Size = new System.Drawing.Size(324, 623);
+            this.splitContainer3.SplitterDistance = 309;
+            this.splitContainer3.TabIndex = 0;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 625);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1245, 22);
+            this.statusStrip1.TabIndex = 2;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(90, 17);
+            this.toolStripStatusLabel1.Text = "My Status Label";
+            // 
+            // panel1
+            // 
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(28, 23);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(800, 600);
+            this.panel1.TabIndex = 3;
+            // 
+            // leftRulerControl
+            // 
+            this.leftRulerControl.ActualSize = true;
+            this.leftRulerControl.DivisionMarkFactor = 5;
+            this.leftRulerControl.Divisions = 10;
+            this.leftRulerControl.Dock = System.Windows.Forms.DockStyle.Left;
+            this.leftRulerControl.ForeColor = System.Drawing.Color.Black;
+            this.leftRulerControl.Location = new System.Drawing.Point(0, 23);
+            this.leftRulerControl.MajorInterval = 100;
+            this.leftRulerControl.MiddleMarkFactor = 3;
+            this.leftRulerControl.MouseTrackingOn = true;
+            this.leftRulerControl.Name = "leftRulerControl";
+            this.leftRulerControl.Orientation = Lyquidity.UtilityLibrary.Controls.enumOrientation.orVertical;
+            this.leftRulerControl.RulerAlignment = Lyquidity.UtilityLibrary.Controls.enumRulerAlignment.raMiddle;
+            this.leftRulerControl.ScaleMode = Lyquidity.UtilityLibrary.Controls.enumScaleMode.smPoints;
+            this.leftRulerControl.Size = new System.Drawing.Size(28, 600);
+            this.leftRulerControl.StartValue = 0D;
+            this.leftRulerControl.TabIndex = 2;
+            this.leftRulerControl.Text = "rulerControl1";
+            this.leftRulerControl.VerticalNumbers = false;
+            this.leftRulerControl.ZoomFactor = 1D;
+            // 
+            // topRulerControl
+            // 
+            this.topRulerControl.ActualSize = true;
+            this.topRulerControl.DivisionMarkFactor = 5;
+            this.topRulerControl.Divisions = 10;
+            this.topRulerControl.Dock = System.Windows.Forms.DockStyle.Top;
+            this.topRulerControl.ForeColor = System.Drawing.Color.Black;
+            this.topRulerControl.Location = new System.Drawing.Point(0, 0);
+            this.topRulerControl.MajorInterval = 100;
+            this.topRulerControl.MiddleMarkFactor = 3;
+            this.topRulerControl.MouseTrackingOn = true;
+            this.topRulerControl.Name = "topRulerControl";
+            this.topRulerControl.Orientation = Lyquidity.UtilityLibrary.Controls.enumOrientation.orHorizontal;
+            this.topRulerControl.RulerAlignment = Lyquidity.UtilityLibrary.Controls.enumRulerAlignment.raBottomOrRight;
+            this.topRulerControl.ScaleMode = Lyquidity.UtilityLibrary.Controls.enumScaleMode.smPoints;
+            this.topRulerControl.Size = new System.Drawing.Size(828, 23);
+            this.topRulerControl.StartValue = 0D;
+            this.topRulerControl.TabIndex = 1;
+            this.topRulerControl.Text = "rulerControl1";
+            this.topRulerControl.VerticalNumbers = true;
+            this.topRulerControl.ZoomFactor = 1D;
             // 
             // Xna2dEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(940, 573);
+            this.ClientSize = new System.Drawing.Size(1245, 647);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -269,10 +343,16 @@ namespace Fyri2dEditor
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
-            this.modelTabPage.ResumeLayout(false);
             this.editorToolStrip.ResumeLayout(false);
             this.editorToolStrip.PerformLayout();
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+            this.splitContainer3.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -294,13 +374,17 @@ namespace Fyri2dEditor
         private System.Windows.Forms.ToolStripMenuItem loadTexture2dToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadFontToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadEffectToolStripMenuItem;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage modelTabPage;
         private System.Windows.Forms.ToolStripMenuItem loadSpriteFontToolStripMenuItem;
         private System.Windows.Forms.ToolStrip editorToolStrip;
         private System.Windows.Forms.ToolStripButton selectTSB;
         private System.Windows.Forms.ToolStripButton lineTSB;
-        private XnaLine2dViewerControl xnaLine2dViewerControl;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.SplitContainer splitContainer3;
+        private Lyquidity.UtilityLibrary.Controls.RulerControl topRulerControl;
+        private Lyquidity.UtilityLibrary.Controls.RulerControl leftRulerControl;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.Panel panel1;
 
     }
 }
