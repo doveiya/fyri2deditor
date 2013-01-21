@@ -86,7 +86,7 @@ namespace Fyri2dEditor
                 // Register the service, so components like ContentManager can find it.
                 services.AddService<IGraphicsDeviceService>(graphicsDeviceService);
 
-                //OpenDefaultProject();
+                OpenDefaultProject();
                 //RefreshProject();
             }
 

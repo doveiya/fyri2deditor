@@ -17,6 +17,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Fyri2dEditor;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Drawing.Imaging;
+using Fyri2dEditor.Xna2dDrawingLibrary;
+using Microsoft.Xna.Framework.Input;
 #endregion
 
 namespace Fyri2dEditor
@@ -51,6 +53,7 @@ namespace Fyri2dEditor
         XnaEffectManager effectManager;
 
         XnaLine2dBatch lineBatch;
+        XnaDrawingContext drawingContext;
 
         ContentBuilder contentBuilder;
         ContentManager contentManager;
@@ -62,6 +65,8 @@ namespace Fyri2dEditor
         TreeNode Texture2dNode;
         TreeNode FontNode;
         TreeNode EffectNode;
+
+        Xna2dShapeControl xna2dShapeControl1;
 
         /// <summary>
         /// Constructs the main form.
@@ -79,11 +84,27 @@ namespace Fyri2dEditor
 
                 // Register the service, so components like ContentManager can find it.
                 services.AddService<IGraphicsDeviceService>(graphicsDeviceService);
+
+                xna2dShapeControl1 = new Xna2dShapeControl();
+                xna2dShapeControl1.Size = new System.Drawing.Size(800, 600);
+                xna2dShapeControl1.Dock = DockStyle.Fill;
+                panel1.Controls.Add(xna2dShapeControl1);
+
+                Mouse.WindowHandle = xna2dShapeControl1.Handle;
+
+                OpenDefaultProject();
+                RefreshProject();
             }
 
             //ProjectNameNode = projectContentTV.Nodes["ProjectNameNode"];
             /// Automatically bring up the "Load Model" dialog when we are first shown.
             //this.Shown += OpenMenuClicked;
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            toolStripStatusLabel1.Text = "X: " + this.Size.Width + " Y: " + this.Size.Height;
+            base.OnResize(e);
         }
 
 
@@ -122,13 +143,20 @@ namespace Fyri2dEditor
 
         public void RefreshProject()
         {
-            ProjectNameNode.Text = "Project Name";
+            //ProjectNameNode.Text = "Project Name";
 
-            ProjectNameNode.Nodes.Clear();
+            //ProjectNameNode.Nodes.Clear();
 
-            xnaLine2dViewerControl.LineBatch = null;
-            xnaLine2dViewerControl.SpriteFont = null;
-            xnaLine2dViewerControl.Effect = null;
+            xna2dShapeControl1.TextureManager = null;
+            xna2dShapeControl1.LineBatch = null;
+            xna2dShapeControl1.SpriteFont = null;
+            xna2dShapeControl1.Effect = null;
+            xna2dShapeControl1.DrawingContext = null;
+
+            if (drawingContext != null)
+            {
+                drawingContext = null;
+            }
 
             if (lineBatch != null)
             {
@@ -171,7 +199,7 @@ namespace Fyri2dEditor
 
             if (currentProject != null)
             {
-                ProjectNameNode.Text = currentProject.ProjectName;
+                //ProjectNameNode.Text = currentProject.ProjectName;
 
                 contentBuilder = new ContentBuilder(currentProject.ProjectContentFolder, false);
 
@@ -189,7 +217,7 @@ namespace Fyri2dEditor
                 
                 //roundLineTechniqueNames = roundLineManager.TechniqueNames;
 
-                ProjectNameNode.Nodes.Clear();
+                //ProjectNameNode.Nodes.Clear();
                 ModelNode = null;
                 Texture2dNode = null;
                 FontNode = null;
@@ -263,10 +291,14 @@ namespace Fyri2dEditor
 
                 lineBatch = new XnaLine2dBatch();
                 lineBatch.Init(this.graphicsDeviceService.GraphicsDevice, roundlineEffect.Effect);
+                
+                drawingContext = new XnaDrawingContext(this.graphicsDeviceService.GraphicsDevice);
 
-                xnaLine2dViewerControl.LineBatch = lineBatch;
-                xnaLine2dViewerControl.SpriteFont = roundlineFont.Font;
-                xnaLine2dViewerControl.Effect = roundlineEffect.Effect;
+                xna2dShapeControl1.LineBatch = lineBatch;
+                xna2dShapeControl1.SpriteFont = roundlineFont.Font;
+                xna2dShapeControl1.Effect = roundlineEffect.Effect;
+                xna2dShapeControl1.DrawingContext = drawingContext;
+                xna2dShapeControl1.TextureManager = texture2dManager;
             }
         }
 
@@ -281,6 +313,22 @@ namespace Fyri2dEditor
                 Stream stream;
 
                 if ((stream = ofd.OpenFile()) != null)
+                {
+                    BinaryFormatter bFormatter = new BinaryFormatter();
+                    currentProject = (FyriProject)bFormatter.Deserialize(stream);
+                    stream.Close();
+                }
+            }
+        }
+
+        private void OpenDefaultProject()
+        {
+            Stream stream;
+            string defaultProjectFilePath = "C:\\Users\\dovieya\\Desktop\\TestContentLoader\\testProject.ff";
+
+            if (File.Exists(defaultProjectFilePath))
+            {
+                if ((stream = File.OpenRead(defaultProjectFilePath)) != null)
                 {
                     BinaryFormatter bFormatter = new BinaryFormatter();
                     currentProject = (FyriProject)bFormatter.Deserialize(stream);
