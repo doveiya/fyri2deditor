@@ -26,6 +26,8 @@ namespace Draw
     using SVGLib;
     using Microsoft.Xna.Framework;
     using Fyri2dEditor.Xna2dDrawingLibrary;
+    using Microsoft.Xna.Framework.Graphics;
+    using Xna2dEditor;
 
     /// <summary>
     /// Rectangle graphic object
@@ -178,7 +180,7 @@ namespace Draw
             return GetNormalizedRectangle(r.X, r.Y, r.X + r.Width, r.Y + r.Height);
         }
 
-        public static string GetRectangleXmlStr(Color stroke,bool isFill,Color fill,float strokewidth,Rectangle rect,Point scale, String shapeName)
+        public static string GetRectangleXmlStr(Color stroke,bool isFill, Color fill,float strokewidth,Rectangle rect,Point scale, String shapeName)
         {
             string s = "<";
             s += Tag;
@@ -209,20 +211,20 @@ namespace Draw
         /// Draw rectangle
         /// </summary>
         /// <param name="g"></param>
-        public override void Draw(XnaDrawingContext g)
+        public override void Draw(SpriteBatch g)
         {
 
             try
             {
                 Rectangle r = GetNormalizedRectangle(Rectangle);
-                if (Fill != Color.Transparent)
+                if (Fill.ToColor() != Color.Transparent)
                 {
                     //Brush brush = new SolidBrush(Fill);
-                    g.DrawFilledRectangle(r, Fill);
+                    XnaDrawing.DrawFilledRectangle(r, Fill.ToColor());
                 }
                 //Pen pen = new Pen(Stroke, StrokeWidth);
                 //TODO change Draw Rectangle to include strokewidth
-                g.DrawRectangle(r.X,r.Y,r.Width,r.Height, Stroke);
+                XnaDrawing.DrawRectangle( r, Stroke);
 
                 //pen.Dispose();
             }

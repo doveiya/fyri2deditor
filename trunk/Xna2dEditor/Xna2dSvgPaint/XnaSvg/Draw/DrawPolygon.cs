@@ -27,6 +27,8 @@ namespace Draw
     using SVGLib;
     using Microsoft.Xna.Framework;
     using Fyri2dEditor.Xna2dDrawingLibrary;
+    using Microsoft.Xna.Framework.Graphics;
+    using Xna2dEditor;
 
     /// <summary>
     /// Polygon graphic object
@@ -115,20 +117,20 @@ namespace Draw
             _pointArray.Add(point);
         }
 
-        public override void Draw(XnaDrawingContext g)
+        public override void Draw(SpriteBatch g)
         {
             float x1 = 0, y1 = 0;     // previous point
             try
             {
                 //g.SmoothingMode = SmoothingMode.AntiAlias;
 
-                if (Fill != Color.Transparent)
+                if (Fill.ToColor() != Color.Transparent)
                 {
                     var arr = new Vector2[_pointArray.Count];
                     for (int i = 0; i < _pointArray.Count; i++)
                         arr[i] = (Vector2)_pointArray[i];
                     //Brush brush = new SolidBrush(Fill);
-                    g.DrawPolyline(arr, Fill);
+                    XnaDrawing.DrawPolyline(arr, Fill.ToColor());
                 }
 
                 //var pen = new Pen(Stroke, StrokeWidth);
@@ -146,7 +148,7 @@ namespace Draw
                     float x2 = ((Point)enumerator.Current).X;             // current point
                     float y2 = ((Point)enumerator.Current).Y;             // current point
 
-                    g.DrawLine(x1, y1, x2, y2, Stroke);
+                    XnaDrawing.DrawLine(2.0f, Stroke, new Vector2(x1, y1), new Vector2( x2, y2));
 
                     x1 = x2;
                     y1 = y2;

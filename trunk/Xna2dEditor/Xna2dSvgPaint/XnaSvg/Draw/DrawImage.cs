@@ -27,6 +27,7 @@ namespace Draw
     using SVGLib;
     using Microsoft.Xna.Framework;
     using Fyri2dEditor.Xna2dDrawingLibrary;
+    using Microsoft.Xna.Framework.Graphics;
 
     /// <summary>
     /// DrawImage graphic object
@@ -188,7 +189,7 @@ namespace Draw
             }
         }
 
-        public override void Draw(XnaDrawingContext g)
+        public override void Draw(SpriteBatch g)
         {
             try
             {

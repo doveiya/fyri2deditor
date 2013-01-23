@@ -27,6 +27,8 @@ namespace Draw
     using SVGLib;
     using Microsoft.Xna.Framework;
     using Fyri2dEditor.Xna2dDrawingLibrary;
+    using Microsoft.Xna.Framework.Graphics;
+    using Xna2dEditor;
 
     /// <summary>
     /// Line graphic object
@@ -113,14 +115,14 @@ namespace Draw
             }
         }
 
-        public override void Draw(XnaDrawingContext g)
+        public override void Draw(SpriteBatch g)
         {
             try
             {
                 //g.SmoothingMode = SmoothingMode.AntiAlias;
                 //var pen = new Pen(Stroke, StrokeWidth);
                 //TODO change DrawLine to include thickness
-                g.DrawLine(_startPoint.X, _startPoint.Y, _endPoint.X, _endPoint.Y, Stroke);
+                XnaDrawing.DrawLine(2.0f, Stroke, new Vector2(_startPoint.X, _startPoint.Y), new Vector2(_endPoint.X, _endPoint.Y));
                 //pen.Dispose();
             }
             catch (Exception ex)
@@ -257,12 +259,12 @@ namespace Draw
             // Create path which contains wide line
             // for easy mouse selection
             AreaPath = new GraphicsPath();
-            //AreaPen = new Pen(Color.Black, 2);
+            AreaPen = new System.Drawing.Pen(System.Drawing.Color.Black, 2);
             AreaPath.AddLine(_startPoint.X, _startPoint.Y, _endPoint.X, _endPoint.Y);
             AreaPath.Widen(AreaPen);
 
             // Create region from the path
-            //AreaRegion = new Region(AreaPath);
+            AreaRegion = new System.Drawing.Region(AreaPath);
         }
 
         /// <summary>

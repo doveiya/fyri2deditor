@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Xna2dEditor.Tools.ToolBoxes
+namespace Xna2dEditor
 {
-    public partial class ToolBox : Form
+    public partial class XnaToolBox : Control
     {
         public String ToolSelection = "";
 
@@ -20,7 +20,7 @@ namespace Xna2dEditor.Tools.ToolBoxes
         public event ToolSelectionChangedEventHandler ToolSelectionChanged;
 
 
-        public ToolBox()
+        public XnaToolBox()
         {
             InitializeComponent();
         }

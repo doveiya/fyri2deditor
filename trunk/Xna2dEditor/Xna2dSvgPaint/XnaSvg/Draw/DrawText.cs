@@ -26,6 +26,7 @@ namespace Draw
     using Microsoft.Xna.Framework.Graphics;
     using Fyri2dEditor;
     using Fyri2dEditor.Xna2dDrawingLibrary;
+    using Xna2dEditor;
 
     /// <summary>
     /// text graphic object
@@ -34,7 +35,7 @@ namespace Draw
     {
         #region Fields
 
-        public static System.Drawing.Font LastFontText = new System.Drawing.Font("Microsoft Sans Serif",12);
+        public static SpriteFont LastFontText = XnaDrawing.defaultFont;
         public static string LastInputText = "";
         public static System.Drawing.StringFormat LastStringFormat = new System.Drawing.StringFormat();
         public System.Drawing.StringFormat TextAnchor;
@@ -46,7 +47,8 @@ namespace Draw
 
         public XnaDrawText()
         {
-            Font = new System.Drawing.Font("Microsoft Sans Serif",9 * Zoom);
+            //Font = new System.Drawing.Font("Microsoft Sans Serif", 9 * Zoom);
+            Font = XnaDrawing.defaultFont;
             Text = "";
             SetRectangle(0, 0, 1, 1);
             Initialize();
@@ -55,7 +57,8 @@ namespace Draw
 
         public XnaDrawText(float x, float y)
         {
-            Font = new System.Drawing.Font(LastFontText.FontFamily, LastFontText.Size * Zoom);
+            //Font = new System.Drawing.Font(LastFontText.FontFamily, LastFontText.Size * Zoom);
+            Font = XnaDrawing.defaultFont;
             Text = LastInputText;
             TextAnchor = new System.Drawing.StringFormat(XnaDrawText.LastStringFormat);
             Rectangle = new Rectangle((int)(x* Zoom ), (int)(y * Zoom), 0, 0);
@@ -66,7 +69,7 @@ namespace Draw
 
         #region Properties
 
-        public System.Drawing.Font Font { get; set; }
+        public SpriteFont Font { get; set; }
 
         public string Text
         {
@@ -119,7 +122,7 @@ namespace Draw
             }
         }
 
-        public static string GetXmlText(Rectangle rect,Color color,System.Drawing.Font font,string txt,Point scale,System.Drawing.StringFormat anchor)
+        public static string GetXmlText(Rectangle rect,Color color, SpriteFont font,string txt,Point scale,System.Drawing.StringFormat anchor)
         {
             //</text>
             Console.WriteLine(font);
@@ -168,15 +171,17 @@ namespace Draw
             return s;
         }
 
-        public override void Draw(XnaDrawingContext g)
+        public override void Draw(SpriteBatch g)
         {
-            SpriteFont font = null;
+            //SpriteFont font = null;
+            if (Font == null)
+                Font = XnaDrawing.defaultFont;
             if (Rectangle.Width == 0 || Rectangle.Height == 0)
-                Rectangle = CalcSize(Text,font,Rectangle.X,Rectangle.Y,TextAnchor);
+                Rectangle = CalcSize(Text, Font, Rectangle.X, Rectangle.Y, TextAnchor);
             //Brush brush = new SolidBrush(Stroke);
             try
             {
-                //g.DrawText(Font,Text,brush,Rectangle,TextAnchor);
+                XnaDrawing.DrawText(Font, Text, Stroke, Rectangle, TextAnchor);
             }
             catch(Exception ex)
             {
@@ -192,8 +197,8 @@ namespace Draw
         public override void Resize(Point newscale,Point oldscale)
         {
             base.Resize(newscale,oldscale);
-            float newfw = RecalcFloat(Font.Size, newscale.X,oldscale.X);
-            Font = new System.Drawing.Font(Font.FontFamily.Name,newfw,Font.Style);
+            //float newfw = RecalcFloat(Font.Size, newscale.X,oldscale.X);
+            //Font = new System.Drawing.Font(Font.FontFamily.Name,newfw,Font.Style);
         }
 
         [CLSCompliant(false)]
@@ -215,9 +220,10 @@ namespace Draw
                     fs = 1;
                 if (svg.FontStyle.IndexOf("italic")>=0)
                     fs = fs|2;
-                Font = new System.Drawing.Font(family,size,(System.Drawing.FontStyle )fs);
+                Font = XnaDrawing.defaultFont;
+                    //new System.Drawing.Font(family,size,(System.Drawing.FontStyle )fs);
                 //				y -= font.Size;
-                y -= Font.Height;
+                y -= Font.MeasureString("T").Y;
                 Rectangle = new Rectangle((int)x,(int)y,(int)w,(int)h);
                 if (svg.TextAnchor.Length > 0)
                 {

@@ -19,6 +19,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Drawing.Imaging;
 using Fyri2dEditor.Xna2dDrawingLibrary;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 #endregion
 
 namespace Fyri2dEditor
@@ -52,6 +53,7 @@ namespace Fyri2dEditor
         XnaFontManager fontManager;
         XnaEffectManager effectManager;
 
+        RoundLineManager roundLineManager;
         XnaLine2dBatch lineBatch;
         XnaDrawingContext drawingContext;
 
@@ -67,6 +69,13 @@ namespace Fyri2dEditor
         TreeNode EffectNode;
 
         Xna2dShapeControl xna2dShapeControl1;
+        //private PropertyValueChangedEventHandler propertyGrid1_PropertyValueChanged;
+
+        void propertyGrid1_PropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
+        {
+            xna2dShapeControl1.PropertyChanged(e.ChangedItem, e.OldValue);
+            xna2dShapeControl1.Refresh();
+        }
 
         /// <summary>
         /// Constructs the main form.
@@ -116,6 +125,70 @@ namespace Fyri2dEditor
             Close();
         }
 
+        void ItemsSelected(object sender, MouseEventArgs e)
+        {
+            int i = 0;
+            var selectedItems = (List<Draw.XnaDrawObject>)sender;
+            var obj = new object[selectedItems.Count];
+            foreach (Draw.XnaDrawObject dob in selectedItems)
+            {
+                obj[i++] = dob;
+            }
+
+            if (selectedItems.Count > 0)
+            {
+                propertyGrid1.SelectedObjects = obj;
+            }
+        }
+
+        public void SetTool(object sender, EventArgs e)
+        {
+            if (xna2dShapeControl1 == null)
+                return;
+
+            switch ((String)sender)
+            {
+                case "Pointer":
+                    xna2dShapeControl1.ActiveTool = Xna2dEditor.XnaToolUser.Xna2dDrawToolType.Pointer;
+                    break;
+
+                case "Rectangle":
+                    xna2dShapeControl1.ActiveTool = Xna2dEditor.XnaToolUser.Xna2dDrawToolType.Rectangle;
+                    break;
+
+                case "Ellipse":
+                    xna2dShapeControl1.ActiveTool = Xna2dEditor.XnaToolUser.Xna2dDrawToolType.Ellipse;
+                    break;
+
+                case "Line":
+                    xna2dShapeControl1.ActiveTool = Xna2dEditor.XnaToolUser.Xna2dDrawToolType.Line;
+                    break;
+
+                case "Pan":
+                    xna2dShapeControl1.ActiveTool = Xna2dEditor.XnaToolUser.Xna2dDrawToolType.Pan;
+                    break;
+
+                case "Pencil":
+                    xna2dShapeControl1.ActiveTool = Xna2dEditor.XnaToolUser.Xna2dDrawToolType.Polygon;
+                    break;
+
+                case "Text":
+                    xna2dShapeControl1.ActiveTool = Xna2dEditor.XnaToolUser.Xna2dDrawToolType.Text;
+                    break;
+
+                case "Path":
+                    xna2dShapeControl1.ActiveTool = Xna2dEditor.XnaToolUser.Xna2dDrawToolType.Path;
+                    break;
+
+                case "Image":
+                    xna2dShapeControl1.ActiveTool = Xna2dEditor.XnaToolUser.Xna2dDrawToolType.Bitmap;
+                    break;
+
+                default:
+                    xna2dShapeControl1.ActiveTool = Xna2dEditor.XnaToolUser.Xna2dDrawToolType.Pointer;
+                    break;
+            }
+        }
 
         #region File Methods
 
@@ -147,7 +220,13 @@ namespace Fyri2dEditor
 
             //ProjectNameNode.Nodes.Clear();
 
+            xnaToolBox1.ToolSelectionChanged += SetTool;
+            xna2dShapeControl1.ItemsSelected += ItemsSelected;
+            propertyGrid1.PropertyValueChanged += new PropertyValueChangedEventHandler(propertyGrid1_PropertyValueChanged);
+
+            xna2dShapeControl1.Project = null;
             xna2dShapeControl1.TextureManager = null;
+            xna2dShapeControl1.RoundLineManager = null;
             xna2dShapeControl1.LineBatch = null;
             xna2dShapeControl1.SpriteFont = null;
             xna2dShapeControl1.Effect = null;
@@ -156,6 +235,11 @@ namespace Fyri2dEditor
             if (drawingContext != null)
             {
                 drawingContext = null;
+            }
+
+            if (roundLineManager != null)
+            {
+                roundLineManager = null;
             }
 
             if (lineBatch != null)
@@ -289,16 +373,24 @@ namespace Fyri2dEditor
                 FyriEffect roundlineEffect = effectManager.GetEffect("RoundLine");
                 FyriFont roundlineFont = fontManager.GetFont("SpriteFont");
 
+                roundLineManager = new RoundLineManager();
+                roundLineManager.Init(this.graphicsDeviceService.GraphicsDevice, roundlineEffect.Effect);                
+
                 lineBatch = new XnaLine2dBatch();
                 lineBatch.Init(this.graphicsDeviceService.GraphicsDevice, roundlineEffect.Effect);
                 
                 drawingContext = new XnaDrawingContext(this.graphicsDeviceService.GraphicsDevice);
 
+
+                xna2dShapeControl1.ShapeProperties = this.propertyGrid1;
+                xna2dShapeControl1.ToolBox = this.xnaToolBox1;
+                xna2dShapeControl1.RoundLineManager = roundLineManager;
                 xna2dShapeControl1.LineBatch = lineBatch;
                 xna2dShapeControl1.SpriteFont = roundlineFont.Font;
                 xna2dShapeControl1.Effect = roundlineEffect.Effect;
                 xna2dShapeControl1.DrawingContext = drawingContext;
                 xna2dShapeControl1.TextureManager = texture2dManager;
+                xna2dShapeControl1.Project = currentProject;
             }
         }
 
@@ -723,6 +815,11 @@ namespace Fyri2dEditor
             BinaryFormatter bFormatter = new BinaryFormatter();
             bFormatter.Serialize(stream, currentProject);
             stream.Close();
+        }
+
+        private void toggleGridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            xna2dShapeControl1.DrawGrid = toggleGridToolStripMenuItem.Checked;
         }
 
         //private void projectContentTV_AfterSelect(object sender, TreeViewEventArgs e)

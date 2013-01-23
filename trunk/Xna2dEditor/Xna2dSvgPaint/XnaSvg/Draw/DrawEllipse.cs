@@ -24,6 +24,8 @@ namespace Draw
     using SVGLib;
     using Fyri2dEditor.Xna2dDrawingLibrary;
     using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    using Xna2dEditor;
 
     /// <summary>
     /// Ellipse graphic object
@@ -73,16 +75,16 @@ namespace Draw
             }
         }
 
-        public override void Draw(XnaDrawingContext g)
+        public override void Draw(SpriteBatch g)
         {
             Rectangle r = GetNormalizedRectangle(Rectangle);
-            if (Fill != Color.Transparent)
+            if (Fill.ToColor() != Color.Transparent)
             {
                 //Brush brush = new SolidBrush(Fill);
-                g.DrawFilledEllipse(r, Fill);
+                XnaDrawing.DrawFilledEllipse(r, Fill.ToColor());
             }
             //var pen = new Pen(Stroke, StrokeWidth);
-            g.DrawEllipse(r, Stroke);
+            XnaDrawing.DrawEllipse(r, Stroke);
             //pen.Dispose();
         }
 

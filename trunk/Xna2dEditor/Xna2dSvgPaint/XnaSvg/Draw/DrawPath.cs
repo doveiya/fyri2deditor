@@ -29,6 +29,7 @@ namespace Draw
 using Microsoft.Xna.Framework;
     using Fyri2dEditor.Xna2dDrawingLibrary;
     using Xna2dEditor;
+    using Microsoft.Xna.Framework.Graphics;
 
     public sealed class XnaDrawPath : XnaDrawLine
     {
@@ -241,7 +242,7 @@ using Microsoft.Xna.Framework;
             _pointArray[_pointArray.Count - 1].Pc = 'Z';
         }
 
-        public override void Draw(XnaDrawingContext g)
+        public override void Draw(SpriteBatch g)
         {
             Point p0 = new Point();
             Point p1 = new Point();
