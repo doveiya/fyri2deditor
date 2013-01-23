@@ -114,6 +114,11 @@
     <Compile Include="CustomClasses\MatrixExtensions.cs" />
     <Compile Include="CustomClasses\PDefaults.cs" />
     <Compile Include="CustomClasses\RegionFx.cs" />
+    <Compile Include="CustomClasses\SelectableClass.cs" />
+    <Compile Include="CustomClasses\XnaColor.cs" />
+    <Compile Include="CustomClasses\XnaColorConverter.cs" />
+    <Compile Include="CustomClasses\XnaColorEditor.cs" />
+    <Compile Include="CustomClasses\XnaDrawing.cs" />
     <Compile Include="CustomClasses\XnaCamera2d.cs" />
     <Compile Include="CustomClasses\XnaGraphics.cs" />
     <Compile Include="CustomClasses\XnaGraphicsPath.cs" />
@@ -135,6 +140,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Fonts\XnaFontManager.cs" />
+    <Compile Include="FyriMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FyriMainForm.Designer.cs">
+      <DependentUpon>FyriMainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GraphicsDevice\GraphicsDeviceUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -247,6 +258,29 @@
     <Compile Include="Xna2dDrawing\Xna2dDrawingLibrary\TextureBrush.cs" />
     <Compile Include="Xna2dDrawing\Xna2dDrawingLibrary\Transform2D.cs" />
     <Compile Include="Xna2dDrawing\Xna2dDrawingLibrary\VertexFragment.cs" />
+    <Compile Include="Xna2dEditor\RulerControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Xna2dEditor\XnaToolBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Xna2dEditor\XnaToolBox.Designer.cs">
+      <DependentUpon>XnaToolBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Xna2dEditor\Tools\XnaTool.cs" />
+    <Compile Include="Xna2dEditor\Tools\XnaToolEllipse.cs" />
+    <Compile Include="Xna2dEditor\Tools\XnaToolImage.cs" />
+    <Compile Include="Xna2dEditor\Tools\XnaToolLine.cs" />
+    <Compile Include="Xna2dEditor\Tools\XnaToolObject.cs" />
+    <Compile Include="Xna2dEditor\Tools\XnaToolPan.cs" />
+    <Compile Include="Xna2dEditor\Tools\XnaToolPath.cs" />
+    <Compile Include="Xna2dEditor\Tools\XnaToolPointer.cs" />
+    <Compile Include="Xna2dEditor\Tools\XnaToolPolygon.cs" />
+    <Compile Include="Xna2dEditor\Tools\XnaToolRectangle.cs" />
+    <Compile Include="Xna2dEditor\Tools\XnaToolText.cs" />
+    <Compile Include="Xna2dEditor\Tools\XnaToolUser.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Xna2dEditor\Xna2dShapeControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -258,21 +292,6 @@
     </Compile>
     <Compile Include="Xna2dEditor\XnaLine2dViewerControl.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Xna2dSvgPaint\Xna2dSvgPaintVC.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Xna2dSvgPaint\Xna2dSvgPaintForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Xna2dSvgPaint\Xna2dSvgPaintForm.Designer.cs">
-      <DependentUpon>Xna2dSvgPaintForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Xna2dSvgPaint\XnaSvg\AboutBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Xna2dSvgPaint\XnaSvg\AboutBox.Designer.cs">
-      <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Xna2dSvgPaint\XnaSvg\Draw\Command\BringToFrontCommand.cs" />
     <Compile Include="Xna2dSvgPaint\XnaSvg\Draw\Command\CreateCommand.cs" />
@@ -295,14 +314,8 @@
     <Compile Include="Xna2dSvgPaint\XnaSvg\Draw\DrawRectangle.cs" />
     <Compile Include="Xna2dSvgPaint\XnaSvg\Draw\DrawText.cs" />
     <Compile Include="Xna2dSvgPaint\XnaSvg\Draw\EnPathCommands.cs" />
-    <Compile Include="Xna2dSvgPaint\XnaSvg\Draw\GraphicsList.cs" />
+    <Compile Include="Xna2dSvgPaint\XnaSvg\Draw\XnaGraphicsList.cs" />
     <Compile Include="Xna2dSvgPaint\XnaSvg\Draw\PathCommands.cs" />
-    <Compile Include="Xna2dSvgPaint\XnaSvg\SVGArtiste.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Xna2dSvgPaint\XnaSvg\SVGArtiste.Designer.cs">
-      <DependentUpon>SVGArtiste.cs</DependentUpon>
-    </Compile>
     <Compile Include="Xna2dSvgPaint\XnaSvg\Tools\Forms\ShapeProperties.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -315,47 +328,6 @@
     <Compile Include="Xna2dSvgPaint\XnaSvg\Tools\Forms\ToolBox.Designer.cs">
       <DependentUpon>ToolBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Xna2dSvgPaint\XnaSvg\Tools\Tool.cs" />
-    <Compile Include="Xna2dSvgPaint\XnaSvg\Tools\ToolEllipse.cs" />
-    <Compile Include="Xna2dSvgPaint\XnaSvg\Tools\ToolImage.cs" />
-    <Compile Include="Xna2dSvgPaint\XnaSvg\Tools\ToolLine.cs" />
-    <Compile Include="Xna2dSvgPaint\XnaSvg\Tools\ToolObject.cs" />
-    <Compile Include="Xna2dSvgPaint\XnaSvg\Tools\ToolPan.cs" />
-    <Compile Include="Xna2dSvgPaint\XnaSvg\Tools\ToolPath.cs" />
-    <Compile Include="Xna2dSvgPaint\XnaSvg\Tools\ToolPointer.cs" />
-    <Compile Include="Xna2dSvgPaint\XnaSvg\Tools\ToolPolygon.cs" />
-    <Compile Include="Xna2dSvgPaint\XnaSvg\Tools\ToolRectangle.cs" />
-    <Compile Include="Xna2dSvgPaint\XnaSvg\Tools\ToolText.cs" />
-    <Compile Include="Xna2dSvgPaint\XnaSvg\UserControls\RulerControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Xna2dSvgPaint\XnaSvg\UserControls\WorkSpace.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Xna2dSvgPaint\XnaSvg\UserControls\WorkSpace.Designer.cs">
-      <DependentUpon>WorkSpace.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Xna2dSvgPaint\XnaSvg\UserControls\WorkspaceHolder.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Xna2dSvgPaint\XnaSvg\UserControls\WorkspaceHolder.Designer.cs">
-      <DependentUpon>WorkspaceHolder.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Xna2dSvgPaint\XnaSvg\UserControls\Xna2dDrawArea.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Xna2dSvgPaint\XnaSvg\WorkArea.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Xna2dSvgPaint\XnaSvg\WorkArea.Designer.cs">
-      <DependentUpon>WorkArea.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Xna2dSvgPaint\XnaSvg\WorkSpaceControlBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Xna2dSvgPaint\XnaSvg\WorkSpaceControlBox.Designer.cs">
-      <DependentUpon>WorkSpaceControlBox.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="2dShapes\Line2d\Line2dDemoForm.resx">
       <DependentUpon>Line2dDemoForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -366,6 +338,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Fonts\BitmapFontExporter.resx">
       <DependentUpon>BitmapFontExporter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FyriMainForm.resx">
+      <DependentUpon>FyriMainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FyriProject\EditProjectWindow.resx">
       <DependentUpon>EditProjectWindow.cs</DependentUpon>
@@ -388,40 +363,21 @@
       <DependentUpon>Xna2dDrawingDemoForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Xna2dEditor\RulerControl.resx">
+      <DependentUpon>RulerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Xna2dEditor\XnaToolBox.resx">
+      <DependentUpon>XnaToolBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Xna2dEditor\Xna2dEditorForm.resx">
       <DependentUpon>Xna2dEditorForm.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Xna2dSvgPaint\Xna2dSvgPaintForm.resx">
-      <DependentUpon>Xna2dSvgPaintForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Xna2dSvgPaint\XnaSvg\AboutBox.resx">
-      <DependentUpon>AboutBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Xna2dSvgPaint\XnaSvg\SVGArtiste.resx">
-      <DependentUpon>SVGArtiste.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Xna2dSvgPaint\XnaSvg\Tools\Forms\ShapeProperties.resx">
       <DependentUpon>ShapeProperties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Xna2dSvgPaint\XnaSvg\Tools\Forms\ToolBox.resx">
       <DependentUpon>ToolBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Xna2dSvgPaint\XnaSvg\UserControls\RulerControl.resx">
-      <DependentUpon>RulerControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Xna2dSvgPaint\XnaSvg\UserControls\WorkSpace.resx">
-      <DependentUpon>WorkSpace.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Xna2dSvgPaint\XnaSvg\UserControls\WorkspaceHolder.resx">
-      <DependentUpon>WorkspaceHolder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Xna2dSvgPaint\XnaSvg\WorkArea.resx">
-      <DependentUpon>WorkArea.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Xna2dSvgPaint\XnaSvg\WorkSpaceControlBox.resx">
-      <DependentUpon>WorkSpaceControlBox.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Default\RoundLine.fx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -501,7 +457,9 @@
       <Name>SVGLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Xna2dSvgPaint\XnaSvg\UserControls\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

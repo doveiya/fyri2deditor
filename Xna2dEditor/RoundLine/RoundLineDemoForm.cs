@@ -79,6 +79,9 @@ namespace Fyri2dEditor
 
                 // Register the service, so components like ContentManager can find it.
                 services.AddService<IGraphicsDeviceService>(graphicsDeviceService);
+
+                OpenDefaultProject();
+                RefreshProject();
             }
 
             ProjectNameNode = projectContentTV.Nodes["ProjectNameNode"];
@@ -122,9 +125,9 @@ namespace Fyri2dEditor
 
         public void RefreshProject()
         {
-            ProjectNameNode.Text = "Project Name";
+            //ProjectNameNode.Text = "Project Name";
 
-            ProjectNameNode.Nodes.Clear();
+            //ProjectNameNode.Nodes.Clear();
 
             roundLineDemoViewerControl.RoundLineManager = null;
             roundLineDemoViewerControl.SpriteFont = null;
@@ -171,7 +174,7 @@ namespace Fyri2dEditor
 
             if (currentProject != null)
             {
-                ProjectNameNode.Text = currentProject.ProjectName;
+                //ProjectNameNode.Text = currentProject.ProjectName;
 
                 contentBuilder = new ContentBuilder(currentProject.ProjectContentFolder, false);
 
@@ -189,7 +192,7 @@ namespace Fyri2dEditor
                 
                 //roundLineTechniqueNames = roundLineManager.TechniqueNames;
 
-                ProjectNameNode.Nodes.Clear();
+                //ProjectNameNode.Nodes.Clear();
                 ModelNode = null;
                 Texture2dNode = null;
                 FontNode = null;
@@ -201,10 +204,10 @@ namespace Fyri2dEditor
                 {
                     currentProject.LoadedModels = modelManager.RefreshList(currentProject.LoadedModels);
 
-                    foreach (FyriModel model in currentProject.LoadedModels)
-                    {
-                        AddModelToTreeView(model);
-                    }
+                    //foreach (FyriModel model in currentProject.LoadedModels)
+                    //{
+                    //    AddModelToTreeView(model);
+                    //}
                 }
                 else
                 {
@@ -218,20 +221,20 @@ namespace Fyri2dEditor
                 {
                     currentProject.LoadedTexture2ds = texture2dManager.RefreshList(currentProject.LoadedTexture2ds);
 
-                    foreach (FyriTexture2d texture in currentProject.LoadedTexture2ds)
-                    {
-                        AddTexture2dToTreeView(texture);
-                    }
+                    //foreach (FyriTexture2d texture in currentProject.LoadedTexture2ds)
+                    //{
+                    //    AddTexture2dToTreeView(texture);
+                    //}
                 }
 
                 if (currentProject.LoadedFonts.Count > 0)
                 {
                     currentProject.LoadedFonts = fontManager.RefreshList(currentProject.LoadedFonts);
 
-                    foreach (FyriFont font in currentProject.LoadedFonts)
-                    {
-                        AddFontToTreeView(font);
-                    }
+                    //foreach (FyriFont font in currentProject.LoadedFonts)
+                    //{
+                    //    AddFontToTreeView(font);
+                    //}
                 }
                 else
                 {
@@ -245,10 +248,10 @@ namespace Fyri2dEditor
                 {
                     currentProject.LoadedEffects = effectManager.RefreshList(currentProject.LoadedEffects);
 
-                    foreach (FyriEffect effect in currentProject.LoadedEffects)
-                    {
-                        AddEffectToTreeView(effect);
-                    }
+                    //foreach (FyriEffect effect in currentProject.LoadedEffects)
+                    //{
+                    //    AddEffectToTreeView(effect);
+                    //}
                 }
                 else
                 {
@@ -694,5 +697,21 @@ namespace Fyri2dEditor
         }
 
         #endregion
+
+        private void OpenDefaultProject()
+        {
+            Stream stream;
+            string defaultProjectFilePath = "C:\\Users\\dovieya\\Desktop\\TestContentLoader\\testProject.ff";
+
+            if (File.Exists(defaultProjectFilePath))
+            {
+                if ((stream = File.OpenRead(defaultProjectFilePath)) != null)
+                {
+                    BinaryFormatter bFormatter = new BinaryFormatter();
+                    currentProject = (FyriProject)bFormatter.Deserialize(stream);
+                    stream.Close();
+                }
+            }
+        }
     }
 }

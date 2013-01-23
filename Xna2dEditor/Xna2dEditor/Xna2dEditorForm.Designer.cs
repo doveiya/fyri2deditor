@@ -28,11 +28,12 @@ namespace Fyri2dEditor
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Xna2dEditorForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openShapeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newShapeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -43,37 +44,46 @@ namespace Fyri2dEditor
             this.loadFontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadEffectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadSpriteFontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toggleGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.editorToolStrip = new System.Windows.Forms.ToolStrip();
-            this.selectTSB = new System.Windows.Forms.ToolStripButton();
-            this.lineTSB = new System.Windows.Forms.ToolStripButton();
+            this.xnaToolBox1 = new Xna2dEditor.XnaToolBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.leftRulerControl = new Lyquidity.UtilityLibrary.Controls.RulerControl();
             this.topRulerControl = new Lyquidity.UtilityLibrary.Controls.RulerControl();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.treeView1 = new System.Windows.Forms.TreeView();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.editorToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.Panel1.SuspendLayout();
+            this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.loadToolStripMenuItem});
+            this.loadToolStripMenuItem,
+            this.optionsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1245, 24);
@@ -85,6 +95,8 @@ namespace Fyri2dEditor
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newProjectToolStripMenuItem,
             this.openProjectToolStripMenuItem,
+            this.openShapeToolStripMenuItem,
+            this.newShapeToolStripMenuItem,
             this.saveProjectToolStripMenuItem,
             this.closeProjectToolStripMenuItem,
             this.toolStripSeparator1,
@@ -106,6 +118,18 @@ namespace Fyri2dEditor
             this.openProjectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openProjectToolStripMenuItem.Text = "Open Project...";
             this.openProjectToolStripMenuItem.Click += new System.EventHandler(this.openProjectToolStripMenuItem_Click);
+            // 
+            // openShapeToolStripMenuItem
+            // 
+            this.openShapeToolStripMenuItem.Name = "openShapeToolStripMenuItem";
+            this.openShapeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openShapeToolStripMenuItem.Text = "Open Shape";
+            // 
+            // newShapeToolStripMenuItem
+            // 
+            this.newShapeToolStripMenuItem.Name = "newShapeToolStripMenuItem";
+            this.newShapeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newShapeToolStripMenuItem.Text = "Save Shape";
             // 
             // saveProjectToolStripMenuItem
             // 
@@ -180,6 +204,22 @@ namespace Fyri2dEditor
             this.loadSpriteFontToolStripMenuItem.Text = "Load SpriteFont...";
             this.loadSpriteFontToolStripMenuItem.Click += new System.EventHandler(this.loadSpriteFontToolStripMenuItem_Click);
             // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toggleGridToolStripMenuItem});
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.optionsToolStripMenuItem.Text = "Options";
+            // 
+            // toggleGridToolStripMenuItem
+            // 
+            this.toggleGridToolStripMenuItem.CheckOnClick = true;
+            this.toggleGridToolStripMenuItem.Name = "toggleGridToolStripMenuItem";
+            this.toggleGridToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.toggleGridToolStripMenuItem.Text = "Toggle Grid";
+            this.toggleGridToolStripMenuItem.Click += new System.EventHandler(this.toggleGridToolStripMenuItem_Click);
+            // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -188,45 +228,24 @@ namespace Fyri2dEditor
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.editorToolStrip);
+            this.splitContainer1.Panel1.Controls.Add(this.xnaToolBox1);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(1245, 623);
-            this.splitContainer1.SplitterDistance = 85;
+            this.splitContainer1.SplitterDistance = 84;
             this.splitContainer1.TabIndex = 1;
             // 
-            // editorToolStrip
+            // xnaToolBox1
             // 
-            this.editorToolStrip.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.editorToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.selectTSB,
-            this.lineTSB});
-            this.editorToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-            this.editorToolStrip.Location = new System.Drawing.Point(0, 0);
-            this.editorToolStrip.Name = "editorToolStrip";
-            this.editorToolStrip.Size = new System.Drawing.Size(85, 623);
-            this.editorToolStrip.TabIndex = 0;
-            this.editorToolStrip.Text = "editorToolStrip";
-            // 
-            // selectTSB
-            // 
-            this.selectTSB.Image = ((System.Drawing.Image)(resources.GetObject("selectTSB.Image")));
-            this.selectTSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.selectTSB.Name = "selectTSB";
-            this.selectTSB.Size = new System.Drawing.Size(83, 35);
-            this.selectTSB.Text = "Select";
-            this.selectTSB.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
-            // lineTSB
-            // 
-            this.lineTSB.Image = ((System.Drawing.Image)(resources.GetObject("lineTSB.Image")));
-            this.lineTSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.lineTSB.Name = "lineTSB";
-            this.lineTSB.Size = new System.Drawing.Size(83, 35);
-            this.lineTSB.Text = "Line";
-            this.lineTSB.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.xnaToolBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.xnaToolBox1.Location = new System.Drawing.Point(0, 0);
+            this.xnaToolBox1.Name = "xnaToolBox1";
+            this.xnaToolBox1.Padding = new System.Windows.Forms.Padding(0, 0, 3, 3);
+            this.xnaToolBox1.Size = new System.Drawing.Size(84, 623);
+            this.xnaToolBox1.TabIndex = 0;
+            this.xnaToolBox1.Text = "xnaToolBox1";
             // 
             // splitContainer2
             // 
@@ -243,35 +262,9 @@ namespace Fyri2dEditor
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(1156, 623);
+            this.splitContainer2.Size = new System.Drawing.Size(1157, 623);
             this.splitContainer2.SplitterDistance = 828;
             this.splitContainer2.TabIndex = 0;
-            // 
-            // splitContainer3
-            // 
-            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Name = "splitContainer3";
-            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.splitContainer3.Size = new System.Drawing.Size(324, 623);
-            this.splitContainer3.SplitterDistance = 309;
-            this.splitContainer3.TabIndex = 0;
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 625);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1245, 22);
-            this.statusStrip1.TabIndex = 2;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(90, 17);
-            this.toolStripStatusLabel1.Text = "My Status Label";
             // 
             // panel1
             // 
@@ -325,6 +318,88 @@ namespace Fyri2dEditor
             this.topRulerControl.VerticalNumbers = true;
             this.topRulerControl.ZoomFactor = 1D;
             // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.tabControl1);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.propertyGrid1);
+            this.splitContainer3.Size = new System.Drawing.Size(325, 623);
+            this.splitContainer3.SplitterDistance = 292;
+            this.splitContainer3.TabIndex = 0;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 625);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1245, 22);
+            this.statusStrip1.TabIndex = 2;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(90, 17);
+            this.toolStripStatusLabel1.Text = "My Status Label";
+            // 
+            // propertyGrid1
+            // 
+            this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propertyGrid1.Location = new System.Drawing.Point(0, 0);
+            this.propertyGrid1.Name = "propertyGrid1";
+            this.propertyGrid1.Size = new System.Drawing.Size(325, 327);
+            this.propertyGrid1.TabIndex = 0;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(325, 292);
+            this.tabControl1.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.treeView1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(317, 266);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Project Explorer";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(192, 74);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // treeView1
+            // 
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.Location = new System.Drawing.Point(3, 3);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(311, 260);
+            this.treeView1.TabIndex = 0;
+            // 
             // Xna2dEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -339,20 +414,21 @@ namespace Fyri2dEditor
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.editorToolStrip.ResumeLayout(false);
-            this.editorToolStrip.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -375,9 +451,6 @@ namespace Fyri2dEditor
         private System.Windows.Forms.ToolStripMenuItem loadFontToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadEffectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadSpriteFontToolStripMenuItem;
-        private System.Windows.Forms.ToolStrip editorToolStrip;
-        private System.Windows.Forms.ToolStripButton selectTSB;
-        private System.Windows.Forms.ToolStripButton lineTSB;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private Lyquidity.UtilityLibrary.Controls.RulerControl topRulerControl;
@@ -385,6 +458,16 @@ namespace Fyri2dEditor
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolStripMenuItem openShapeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newShapeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toggleGridToolStripMenuItem;
+        private Xna2dEditor.XnaToolBox xnaToolBox1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.PropertyGrid propertyGrid1;
 
     }
 }

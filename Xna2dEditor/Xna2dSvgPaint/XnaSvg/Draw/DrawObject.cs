@@ -22,6 +22,9 @@ using SVGLib;
 using System.ComponentModel;
 using Microsoft.Xna.Framework;
 using Fyri2dEditor.Xna2dDrawingLibrary;
+using Microsoft.Xna.Framework.Graphics;
+using Xna2dEditor;
+using System.Drawing.Design;
 
 namespace Draw 
 {
@@ -50,7 +53,9 @@ namespace Draw
 	    /// <summary>
 	    /// Color
 	    /// </summary>
-	    public Color Fill { get; set; }
+        [EditorAttribute(typeof(XnaColorEditor), typeof(UITypeEditor))]
+        [CategoryAttribute("Design"), DefaultValueAttribute(typeof(XnaColor), "0 0 0 0"), DescriptionAttribute("Example of a ColorDialog in a PropertyGrid.")]
+	    public XnaColor Fill { get; set; }
 
 	    /// <summary>
         /// Stroke
@@ -109,14 +114,14 @@ namespace Draw
 		/// Draw object
 		/// </summary>
 		/// <param name="g"></param>
-		public virtual void Draw(XnaDrawingContext g)
+		public virtual void Draw(SpriteBatch g)
 		{
 		}
 
 	    protected XnaDrawObject()
         {
             Name = "";
-            Fill = Color.Transparent;
+            Fill = new XnaColor(Color.Transparent);
             Id = 0;
             SetId();
         }
@@ -158,7 +163,7 @@ namespace Draw
 		/// Draw tracker for selected object
 		/// </summary>
 		/// <param name="g"></param>
-		public virtual void DrawTracker(XnaDrawingContext g)
+		public virtual void DrawTracker(SpriteBatch g)
 		{
 			if ( ! Selected )
 				return;
@@ -169,7 +174,7 @@ namespace Draw
 			{
 				try
 				{
-					g.DrawFilledRectangle(GetHandleRectangle(i), Color.Black);
+                    XnaDrawing.DrawFilledRectangle(GetHandleRectangle(i), Color.Black);
 				} 
 				catch
 				{}
@@ -338,13 +343,13 @@ namespace Draw
 
         public string GetStrStyle(Point scale)
 		{
-			return GetStringStyle(Stroke,Fill,StrokeWidth,scale);
+			return GetStringStyle(Stroke,Fill.ToColor(),StrokeWidth,scale);
 		}
 
         public static string GetStringStyle(Color color, Color fill, float strokewidth, Point scale)
 		{
 			float strokeWidth = strokewidth/scale.X;
-		    string sfill = fill != Color.Transparent ? Color2String(fill) : "none";
+            string sfill = fill != Color.Transparent ? Color2String(fill) : "none";
 			string sc = " style = \"fill:"+sfill+"; stroke:"+Color2String(color)+"; stroke-width:"+strokeWidth.ToString(CultureInfo.InvariantCulture)+"\"";
 			return sc;
 		}
@@ -379,7 +384,7 @@ namespace Draw
 		{
 			Stroke = Color.FromNonPremultiplied(svg.Stroke.R, svg.Stroke.G, svg.Stroke.B, svg.Stroke.A);
 			StrokeWidth = ParseSize(svg.StrokeWidth,Dpi.X);
-            Fill = svg.Fill != System.Drawing.Color.Empty ? Color.FromNonPremultiplied(svg.Fill.R, svg.Fill.G, svg.Fill.B, svg.Fill.A) : Color.Transparent;
+            Fill = svg.Fill != System.Drawing.Color.Empty ? new XnaColor(svg.Fill.R, svg.Fill.G, svg.Fill.B, svg.Fill.A) : new XnaColor();
 		}
 
 		public static float ParseSize(string str, float dpi)
