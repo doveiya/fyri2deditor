@@ -44,6 +44,7 @@ namespace Fyri2dEditor
             "Microsoft.Xna.Framework.Content.Pipeline.XImporter" + xnaVersion,
             "Microsoft.Xna.Framework.Content.Pipeline.TextureImporter" + xnaVersion,
             "Microsoft.Xna.Framework.Content.Pipeline.EffectImporter" + xnaVersion,
+            @"C:\Users\dovieya\Desktop\XNA 2D Editor\fyri2deditor\XSpriterPipelineExtensions\bin\x86\Debug\XSpriterPipelineExtensions.dll",
 
             // If you want to use custom importers or processors from
             // a Content Pipeline Extension Library, add them here.

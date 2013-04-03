@@ -28,7 +28,7 @@ namespace Fyri2dEditor
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Project Name");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Project Name");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,6 +41,8 @@ namespace Fyri2dEditor
             this.loadModelToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.loadTexture2dToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadFontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadEffectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadSpriterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.projectContentTV = new System.Windows.Forms.TreeView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -52,7 +54,8 @@ namespace Fyri2dEditor
             this.fontViewerControl = new Fyri2dEditor.FontViewerControl();
             this.effectTabPage = new System.Windows.Forms.TabPage();
             this.effectViewerControl = new Fyri2dEditor.EffectViewerControl();
-            this.loadEffectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.spriterTabPage = new System.Windows.Forms.TabPage();
+            this.spriterViewerControl = new Fyri2dEditor.SpriterViewerControl();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -63,6 +66,7 @@ namespace Fyri2dEditor
             this.texture2dTabPage.SuspendLayout();
             this.fontTabPage.SuspendLayout();
             this.effectTabPage.SuspendLayout();
+            this.spriterTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -135,7 +139,8 @@ namespace Fyri2dEditor
             this.loadModelToolStripMenuItem1,
             this.loadTexture2dToolStripMenuItem,
             this.loadFontToolStripMenuItem,
-            this.loadEffectToolStripMenuItem});
+            this.loadEffectToolStripMenuItem,
+            this.loadSpriterToolStripMenuItem});
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
             this.loadToolStripMenuItem.Text = "Load";
@@ -161,6 +166,20 @@ namespace Fyri2dEditor
             this.loadFontToolStripMenuItem.Text = "Load Font...";
             this.loadFontToolStripMenuItem.Click += new System.EventHandler(this.loadFontToolStripMenuItem_Click);
             // 
+            // loadEffectToolStripMenuItem
+            // 
+            this.loadEffectToolStripMenuItem.Name = "loadEffectToolStripMenuItem";
+            this.loadEffectToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.loadEffectToolStripMenuItem.Text = "Load Effect...";
+            this.loadEffectToolStripMenuItem.Click += new System.EventHandler(this.loadEffectToolStripMenuItem_Click);
+            // 
+            // loadSpriterToolStripMenuItem
+            // 
+            this.loadSpriterToolStripMenuItem.Name = "loadSpriterToolStripMenuItem";
+            this.loadSpriterToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.loadSpriterToolStripMenuItem.Text = "Load Spriter...";
+            this.loadSpriterToolStripMenuItem.Click += new System.EventHandler(this.loadSpriterToolStripMenuItem_Click);
+            // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -183,10 +202,10 @@ namespace Fyri2dEditor
             this.projectContentTV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.projectContentTV.Location = new System.Drawing.Point(0, 0);
             this.projectContentTV.Name = "projectContentTV";
-            treeNode1.Name = "ProjectNameNode";
-            treeNode1.Text = "Project Name";
+            treeNode2.Name = "ProjectNameNode";
+            treeNode2.Text = "Project Name";
             this.projectContentTV.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.projectContentTV.Size = new System.Drawing.Size(254, 549);
             this.projectContentTV.TabIndex = 0;
             this.projectContentTV.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.projectContentTV_AfterSelect);
@@ -197,6 +216,7 @@ namespace Fyri2dEditor
             this.tabControl1.Controls.Add(this.texture2dTabPage);
             this.tabControl1.Controls.Add(this.fontTabPage);
             this.tabControl1.Controls.Add(this.effectTabPage);
+            this.tabControl1.Controls.Add(this.spriterTabPage);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -279,19 +299,32 @@ namespace Fyri2dEditor
             // effectViewerControl
             // 
             this.effectViewerControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.effectViewerControl.Effect = null;
             this.effectViewerControl.Location = new System.Drawing.Point(0, 0);
+            this.effectViewerControl.Model = null;
             this.effectViewerControl.Name = "effectViewerControl";
             this.effectViewerControl.Size = new System.Drawing.Size(674, 523);
-            this.effectViewerControl.Effect = null;
             this.effectViewerControl.TabIndex = 0;
             this.effectViewerControl.Text = "effectViewerControl";
             // 
-            // loadEffectToolStripMenuItem
+            // spriterTabPage
             // 
-            this.loadEffectToolStripMenuItem.Name = "loadEffectToolStripMenuItem";
-            this.loadEffectToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.loadEffectToolStripMenuItem.Text = "Load Effect...";
-            this.loadEffectToolStripMenuItem.Click += new System.EventHandler(this.loadEffectToolStripMenuItem_Click);
+            this.spriterTabPage.Controls.Add(this.spriterViewerControl);
+            this.spriterTabPage.Location = new System.Drawing.Point(4, 22);
+            this.spriterTabPage.Name = "spriterTabPage";
+            this.spriterTabPage.Size = new System.Drawing.Size(674, 523);
+            this.spriterTabPage.TabIndex = 4;
+            this.spriterTabPage.Text = "Spriter Viewer";
+            this.spriterTabPage.UseVisualStyleBackColor = true;
+            // 
+            // spriterViewerControl
+            // 
+            this.spriterViewerControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spriterViewerControl.Location = new System.Drawing.Point(0, 0);
+            this.spriterViewerControl.Name = "spriterViewerControl";
+            this.spriterViewerControl.Size = new System.Drawing.Size(674, 523);
+            this.spriterViewerControl.TabIndex = 0;
+            this.spriterViewerControl.Text = "spriterViewerControl";
             // 
             // ContentLoaderForm
             // 
@@ -314,6 +347,7 @@ namespace Fyri2dEditor
             this.texture2dTabPage.ResumeLayout(false);
             this.fontTabPage.ResumeLayout(false);
             this.effectTabPage.ResumeLayout(false);
+            this.spriterTabPage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -345,6 +379,9 @@ namespace Fyri2dEditor
         private System.Windows.Forms.TabPage effectTabPage;
         private EffectViewerControl effectViewerControl;
         private System.Windows.Forms.ToolStripMenuItem loadEffectToolStripMenuItem;
+        private System.Windows.Forms.TabPage spriterTabPage;
+        private System.Windows.Forms.ToolStripMenuItem loadSpriterToolStripMenuItem;
+        private SpriterViewerControl spriterViewerControl;
 
     }
 }

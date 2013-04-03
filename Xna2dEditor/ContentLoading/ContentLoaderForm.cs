@@ -17,6 +17,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Fyri2dEditor;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Drawing.Imaging;
+using Xna2dEditor;
 #endregion
 
 namespace Fyri2dEditor
@@ -49,6 +50,7 @@ namespace Fyri2dEditor
         XnaTexture2dManager texture2dManager;
         XnaFontManager fontManager;
         XnaEffectManager effectManager;
+        XnaSpriterManager spriterManager;
 
         ContentBuilder contentBuilder;
         ContentManager contentManager;
@@ -60,6 +62,7 @@ namespace Fyri2dEditor
         TreeNode Texture2dNode;
         TreeNode FontNode;
         TreeNode EffectNode;
+        TreeNode SpriterNode;
 
         /// <summary>
         /// Constructs the main form.
@@ -77,9 +80,13 @@ namespace Fyri2dEditor
 
                 // Register the service, so components like ContentManager can find it.
                 services.AddService<IGraphicsDeviceService>(graphicsDeviceService);
+
+                ProjectNameNode = projectContentTV.Nodes["ProjectNameNode"];
+
+                OpenDefaultProject();
+                RefreshProject();
             }
 
-            ProjectNameNode = projectContentTV.Nodes["ProjectNameNode"];
             /// Automatically bring up the "Load Model" dialog when we are first shown.
             //this.Shown += OpenMenuClicked;
         }
@@ -118,11 +125,32 @@ namespace Fyri2dEditor
             }
         }
 
+        private void OpenDefaultProject()
+        {
+            Stream stream;
+            string defaultProjectFilePath = "C:\\Users\\dovieya\\Desktop\\TestContentLoader\\testProject.ff";
+
+            if (File.Exists(defaultProjectFilePath))
+            {
+                if ((stream = File.OpenRead(defaultProjectFilePath)) != null)
+                {
+                    BinaryFormatter bFormatter = new BinaryFormatter();
+                    currentProject = (FyriProject)bFormatter.Deserialize(stream);
+                    stream.Close();
+                }
+            }
+        }
+
         public void RefreshProject()
         {
             ProjectNameNode.Text = "Project Name";
 
             ProjectNameNode.Nodes.Clear();
+
+            if (spriterManager != null)
+            {
+                spriterManager = null;
+            }
 
             if (effectManager != null)
             {
@@ -175,11 +203,14 @@ namespace Fyri2dEditor
 
                 effectManager = new XnaEffectManager(contentBuilder, contentManager, currentProject.OriginalContentFolder);
 
+                spriterManager = new XnaSpriterManager(contentBuilder, contentManager, currentProject.OriginalContentFolder);
+
                 ProjectNameNode.Nodes.Clear();
                 ModelNode = null;
                 Texture2dNode = null;
                 FontNode = null;
                 EffectNode = null;
+                SpriterNode = null;
 
                 effectViewerControl.Effect = null;
 
@@ -517,7 +548,7 @@ namespace Fyri2dEditor
 
                 if (loadedEffect != null)
                 {
-                    if (!currentProject.LoadedFonts.Exists(p => p.FontName == effectName))
+                    if (!currentProject.LoadedEffects.Exists(p => p.EffectName == effectName))
                         currentProject.LoadedEffects.Add(loadedEffect);
 
                     effectViewerControl.Effect = loadedEffect.Effect;
@@ -545,6 +576,79 @@ namespace Fyri2dEditor
             nodeToAdd.Tag = effectToAdd;
 
             EffectNode.Nodes.Add(nodeToAdd);
+
+            projectContentTV.CollapseAll();
+            nodeToAdd.EnsureVisible();
+            projectContentTV.Refresh();
+        }
+
+        #endregion
+
+        #region Spriter
+
+        private void loadSpriterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+
+            // Default to the directory which contains our content files.
+            //string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            //string relativePath = Path.Combine(assemblyLocation, "../../../../Content");
+            string contentPath = currentProject.OriginalContentFolder;
+
+            fileDialog.InitialDirectory = contentPath;
+
+            fileDialog.Title = "Load Spriter File";
+
+            fileDialog.Filter = "Spriter Files (*.scml)|*.scml|" +
+                                "All Files (*.*)|*.*";
+
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                LoadSpriterToProject(fileDialog.FileName);
+            }
+        }
+
+        /// <summary>
+        /// Loads a new 3D model file into the ModelViewerControl.
+        /// </summary>
+        FyriSpriter LoadSpriterToProject(string spriterName)
+        {
+            if (currentProject != null)
+            {
+                Cursor = Cursors.WaitCursor;
+
+                FyriSpriter loadedSpriter = spriterManager.LoadSpriter(spriterName);
+
+                if (loadedSpriter != null)
+                {
+                    if (!currentProject.LoadedSpriters.Exists(p => p.SpriterName == spriterName))
+                        currentProject.LoadedSpriters.Add(loadedSpriter);
+
+                    spriterViewerControl.Character = loadedSpriter.CharacterData.GetCharacterAnimator();
+                    AddSpriterToTreeView(loadedSpriter);
+                }
+                Cursor = Cursors.Arrow;
+
+                return loadedSpriter;
+            }
+
+            return null;
+        }
+
+        void AddSpriterToTreeView(FyriSpriter spriterToAdd)
+        {
+            if (SpriterNode == null)
+            {
+                SpriterNode = new TreeNode();
+                SpriterNode.Text = "Spriters";
+                ProjectNameNode.Nodes.Add(SpriterNode);
+            }
+
+            TreeNode nodeToAdd = new TreeNode();
+            nodeToAdd.Text = spriterToAdd.SpriterName;
+            nodeToAdd.Tag = spriterToAdd;
+
+            SpriterNode.Nodes.Add(nodeToAdd);
 
             projectContentTV.CollapseAll();
             nodeToAdd.EnsureVisible();
@@ -635,5 +739,7 @@ namespace Fyri2dEditor
         }
 
         #endregion
+
+        
     }
 }
