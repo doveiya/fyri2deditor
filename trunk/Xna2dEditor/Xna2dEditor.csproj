@@ -111,10 +111,17 @@
     <Compile Include="ContentLoading\ContentLoaderForm.Designer.cs">
       <DependentUpon>ContentLoaderForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ContentLoading\ContentManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ContentLoading\ContentManagerForm.Designer.cs">
+      <DependentUpon>ContentManagerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomClasses\MatrixExtensions.cs" />
     <Compile Include="CustomClasses\PDefaults.cs" />
     <Compile Include="CustomClasses\RegionFx.cs" />
     <Compile Include="CustomClasses\SelectableClass.cs" />
+    <Compile Include="CustomClasses\TreeViewHelper.cs" />
     <Compile Include="CustomClasses\XnaColor.cs" />
     <Compile Include="CustomClasses\XnaColorConverter.cs" />
     <Compile Include="CustomClasses\XnaColorEditor.cs" />
@@ -140,11 +147,14 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Fonts\XnaFontManager.cs" />
-    <Compile Include="FyriMainForm.cs">
+    <Compile Include="Gameplay\GameplayManagerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FyriMainForm.Designer.cs">
-      <DependentUpon>FyriMainForm.cs</DependentUpon>
+    <Compile Include="Gameplay\GameplayManagerForm.Designer.cs">
+      <DependentUpon>GameplayManagerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gameplay\XnaGPScreenControl.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="GraphicsDevice\GraphicsDeviceUserControl.cs">
       <SubType>UserControl</SubType>
@@ -196,6 +206,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="RoundLine\RoundLineUtils.cs" />
+    <Compile Include="Spriter\FyriSpriter.cs" />
+    <Compile Include="Spriter\ISpriterManager.cs" />
+    <Compile Include="Spriter\SpriterViewerControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Spriter\XnaSpriterManager.cs" />
     <Compile Include="Textures\Texture2dViewerControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -258,6 +274,12 @@
     <Compile Include="Xna2dDrawing\Xna2dDrawingLibrary\TextureBrush.cs" />
     <Compile Include="Xna2dDrawing\Xna2dDrawingLibrary\Transform2D.cs" />
     <Compile Include="Xna2dDrawing\Xna2dDrawingLibrary\VertexFragment.cs" />
+    <Compile Include="FyriMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FyriMainForm.Designer.cs">
+      <DependentUpon>FyriMainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Xna2dEditor\RulerControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -336,14 +358,18 @@
       <DependentUpon>ContentLoaderForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ContentLoading\ContentManagerForm.resx">
+      <DependentUpon>ContentManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Fonts\BitmapFontExporter.resx">
       <DependentUpon>BitmapFontExporter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FyriMainForm.resx">
-      <DependentUpon>FyriMainForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FyriProject\EditProjectWindow.resx">
       <DependentUpon>EditProjectWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gameplay\GameplayManagerForm.resx">
+      <DependentUpon>GameplayManagerForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -361,6 +387,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Xna2dDrawing\Xna2dDrawingDemoForm.resx">
       <DependentUpon>Xna2dDrawingDemoForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FyriMainForm.resx">
+      <DependentUpon>FyriMainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Xna2dEditor\RulerControl.resx">
@@ -455,6 +485,10 @@
     <ProjectReference Include="..\SVGLib\SVGLib.csproj">
       <Project>{43B7A044-2909-48C9-AD09-707709CDFE46}</Project>
       <Name>SVGLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XSpriter\XSpriter.csproj">
+      <Project>{0E7A9CA7-77F7-4F1F-8152-BBA38CA80C51}</Project>
+      <Name>XSpriter</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

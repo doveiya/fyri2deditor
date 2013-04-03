@@ -130,7 +130,7 @@ namespace Fyri2dEditor
     /// <summary>
     /// Class to handle drawing a list of RoundLines.
     /// </summary>
-    class RoundLineManager
+    public class RoundLineManager
     {
         private GraphicsDevice device;
         private Effect effect;

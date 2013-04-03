@@ -819,7 +819,7 @@ namespace Fyri2dEditor
 
         private void toggleGridToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            xna2dShapeControl1.DrawGrid = toggleGridToolStripMenuItem.Checked;
+            //xna2dShapeControl1.DrawGrid = toggleGridToolStripMenuItem.Checked;
         }
 
         //private void projectContentTV_AfterSelect(object sender, TreeViewEventArgs e)
